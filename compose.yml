@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  react-app:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: ${environment}
+    container_name: react-app
+    volumes:
+      - ./frontend/myapp:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    stdin_open: true
+
+    environment:
+      - backendpath="${backendpath}"
+
+volumes:
+  tmp-data:
