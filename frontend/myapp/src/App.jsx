@@ -8,6 +8,7 @@ export const App = ()=> {
   const [showCreateModal,setShowCreateModal] = useState(false);
   const [showDetailModal,setShowDetailModal] = useState(false);
   const [inCompTask,setInCompTask] = useState([]);
+  const apipath_env = process.env.REACT_APP_BACKEND_PATH;
 
   const ShowCreateModal =()=> {
     setShowCreateModal(true);
@@ -16,6 +17,21 @@ export const App = ()=> {
   const ShowDetailModal =()=> {
     setShowDetailModal(true);
   };
+
+  useEffect( ()=>{
+    fetch(apipath_env)
+      .then(response => {
+        if (response.ok)
+
+      })
+      .then(data ={
+
+      })
+      .catch(error =>{
+
+      });
+  },[]);  
+
 
   return (
     <>
@@ -37,7 +53,9 @@ export const App = ()=> {
       <ul>
         {/*ここにタスクリストが一覧表示*/}
         <li>
-          <p>test</p>
+          <p>
+            test
+            </p>
             <button className="comp-button">complete</button>
             <button onClick={ShowDetailModal} className="detail-button">detail</button>
             <DetailModal showFlag={showDetailModal} setShowDetailModal={setShowDetailModal}/>

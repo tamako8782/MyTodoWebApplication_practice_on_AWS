@@ -13,9 +13,37 @@ services:
     ports:
       - "3000:3000"
     stdin_open: true
-
     environment:
       - backendpath="${backendpath}"
+#####go
+  go-app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: ${environment}
+    container_name: go-app
+    volumes:
+    - ./backend:/go
+    ports:
+      - "8080:8080"
+    environment:
+      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+      - "MYSQL_HOST=${MYSQL_HOST}"
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+      - "MYSQL_PORT=${MYSQL_PORT:-3306}"
+#####mysql
+  db:
+    image: mysql:8.2.0
+    container_name: yama-db
+    volumes:
+      - ./backend/dbvol/data/db:/var/lib/mysql
+    environment: 
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+      - TZ=Asia/Tokyo
 
 volumes:
   tmp-data:
