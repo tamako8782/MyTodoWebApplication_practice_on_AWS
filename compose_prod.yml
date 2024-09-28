@@ -1,13 +1,13 @@
 version: "3.8"
 
 services:
-  react-app:
+  react-app-prod:
     build:
       context: ./frontend
       dockerfile: Dockerfile
       target: ${environment}
-    container_name: react-app
-    image: tamako8782/react-prod:v1
+    container_name: react-app-prod
+    image: tamako8782/mytodoapp:front-prodv1
     volumes:
       - ./frontend/myapp:/app
       - /app/node_modules
@@ -16,13 +16,13 @@ services:
     stdin_open: true
 
 #####go
-  go-app:
+  go-app-prod:
     build:
       context: ./backend
       dockerfile: Dockerfile
       target: ${environment}
-    container_name: go-app
-
+    container_name: go-app-prod
+    image: tamako8782/mytodoapp:back-prodv1 
     volumes:
     - ./backend:/go
     ports:
@@ -34,7 +34,7 @@ services:
       - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
       - "MYSQL_PORT=${MYSQL_PORT:-3306}"
 #####mysql
-  db:
+  db-prod:
     image: mysql:8.2.0
     container_name: yama-db
     volumes:

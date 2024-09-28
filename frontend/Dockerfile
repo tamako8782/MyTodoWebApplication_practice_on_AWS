@@ -18,9 +18,11 @@ CMD ["sh", "-c", "npm start"]
 FROM --platform=arm64 node:20-alpine AS build
 ENV NODE_ENV=production
 
+WORKDIR /app
+
 COPY ./myapp/package.json ./myapp/package-lock.json ./
 RUN npm install 
-COPY ./myapp/ /app
+COPY ./myapp/ /app/
 
 # React アプリケーションをビルド
 RUN npm run build
