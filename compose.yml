@@ -24,7 +24,7 @@ services:
     container_name: go-app
 
     volumes:
-    - ./backend:/go
+    - ./backend/:/app/
     ports:
       - "8080:8080"
     environment:

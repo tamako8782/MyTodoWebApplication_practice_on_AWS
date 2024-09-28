@@ -26,24 +26,24 @@ CMD ["tail", "-f", "/dev/null"]
 #### Stage 2 ビルドステージ
 FROM --platform=arm64 golang:1.23rc1-bookworm AS build
 
-
 # 作業ディレクトリを設定
-WORKDIR /app
+WORKDIR /app/
 
 # go.modとgo.sumをコピーして依存パッケージを取得
-COPY ./go.mod  ./
-COPY ./go.sum  ./
+COPY ./src/go.mod  ./
+COPY ./src/go.sum  ./
 RUN go mod download
 
 
 # アプリケーションのソースコードをコピー
 COPY ./ /app
+WORKDIR /app/src
 
 # 本番用にGoアプリケーションをビルド
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o /app/bin/MyTodoApp
 
 # Stage 3: 最小限の本番環境用ステージ
-FROM --platform=arm64 gcr.io/distroless/static-debian12
+FROM --platform=arm64 gcr.io/distroless/static-debian12 AS prod
 
 # 非rootユーザーを使用
 USER nonroot:nonroot

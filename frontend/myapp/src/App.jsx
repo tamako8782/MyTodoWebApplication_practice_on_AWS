@@ -33,7 +33,7 @@ export const App = ()=> {
         return response.json();
       })
       .then(data =>{
-        const inpro = data.filter(task => task.state === "Inprogress");
+        const inpro = data.filter(task => task.state === "InComplete");
         const fin = data.filter(task => task.state === "Finished");
         setInCompTask(inpro);
         setFinishTask(fin);
