@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yamatodo-back
+  labels:
+    app: yamatodo-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yamatodo-back
+  template:
+    metadata:
+      labels:
+        app: yamatodo-back
+    spec:
+      containers:
+      - name: back-app
+        image: tamako8782/mytodoapp:back-prodv1
+        imagePullPolicy: Always  # ここを追加
+        
+        resources:
+          limits:
+            memory: "512Mi"  # リクエストを512Miに増やす
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MYSQL_DATABASE
+          value: "yamamysql"
+        - name: MYSQL_HOST
+          value: "yama-db"
+        - name: MYSQL_USER
+          value: "app"
+        - name: MYSQL_PASSWORD
+          value: "admin1234!" 
+        - name: MYSQL_PORT
+          value: "3306"
+      imagePullSecrets:
+      - name: yamasec

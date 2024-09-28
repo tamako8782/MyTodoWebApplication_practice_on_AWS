@@ -16,11 +16,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: go-app-service
+  name: back-service
 spec:
   ports:
   - port: 8080
     targetPort: 8080
   selector:
-    app: react-go-app
+    app: yamatodo-back
   type: ClusterIP
