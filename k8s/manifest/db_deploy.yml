@@ -22,9 +22,7 @@ spec:
         volumeMounts:
         - name: mysql-storage
           mountPath: /var/lib/mysql  # データ永続化用のパス
-        - name: mysql-init-script
-          mountPath: /docker-entrypoint-initdb.d/init.sql
-          subPath: init.sql
+        
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: "admin1234!"  # 環境変数の設定
@@ -46,9 +44,6 @@ spec:
       - name: mysql-storage
         persistentVolumeClaim:
           claimName: mysql-pvc
-      - name: mysql-init-script
-        configMap:
-          name: mysql-init-script
 
 ---
 
