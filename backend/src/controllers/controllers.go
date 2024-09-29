@@ -6,10 +6,18 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/tamako8782/MyTodoWebApplication_practice/models"
+	"github.com/tamako8782/MyTodoWebApplication_practice/services"
 )
 
-func ListTaskHandler(w http.ResponseWriter, r *http.Request) {
+type MyTaskControllers struct {
+	s *services.MyTaskService
+}
+
+func NewMyTaskControllers(s *services.MyTaskService) *MyTaskControllers {
+	return &MyTaskControllers{s: s}
+}
+
+func (c MyTaskControllers) ListTaskHandler(w http.ResponseWriter, r *http.Request) {
 	queryMap := r.URL.Query()
 
 	var page int
@@ -26,7 +34,10 @@ func ListTaskHandler(w http.ResponseWriter, r *http.Request) {
 
 	log.Println(page)
 
-	taskList := models.TestData
+	taskList, err := c.s.ListTaskService(page)
+	if err != nil {
+		http.Error(w, "internal exec ", http.StatusInternalServerError)
+	}
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(taskList)

@@ -27,7 +27,7 @@ func ListTaskRepo(db *sql.DB, page int) ([]models.MyTodo, error) {
 	taskArray := make([]models.MyTodo, 0)
 	for rows.Next() {
 		var task models.MyTodo
-		rows.Scan(&task.ID, &task.Title)
+		rows.Scan(&task.ID, &task.Title, &task.State)
 
 		taskArray = append(taskArray, task)
 	}

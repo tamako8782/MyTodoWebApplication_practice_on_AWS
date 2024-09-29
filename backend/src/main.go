@@ -7,14 +7,24 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
 	"github.com/tamako8782/MyTodoWebApplication_practice/controllers"
+	"github.com/tamako8782/MyTodoWebApplication_practice/db"
+	"github.com/tamako8782/MyTodoWebApplication_practice/services"
 )
 
 func main() {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/task", controllers.ListTaskHandler).Methods(http.MethodGet)
+	db, err := db.DBConn()
+	if err != nil {
+		log.Println(err)
+	}
 
-	c := cors.New(cors.Options{
+	s := services.NewMyTaskService(db)
+	c := controllers.NewMyTaskControllers(s)
+
+	r.HandleFunc("/task", c.ListTaskHandler).Methods(http.MethodGet)
+
+	co := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"}, // ReactアプリのURL
 		AllowedMethods:   []string{"GET", "POST", "PATCH", "DELETE"},
 		AllowedHeaders:   []string{"Authorization", "Content-Type"},
@@ -23,7 +33,7 @@ func main() {
 
 	// CORSミドルウェアをラップ
 
-	myHandler := c.Handler(r)
+	myHandler := co.Handler(r)
 
 	log.Println("listen to port :8080")
 	http.ListenAndServe(":8080", myHandler)
