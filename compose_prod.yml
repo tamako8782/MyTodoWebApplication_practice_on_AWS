@@ -45,6 +45,22 @@ services:
       - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
       - "MYSQL_DATABASE=${MYSQL_DATABASE}"
       - TZ=Asia/Tokyo
+    ports:
+      - "3306:3306"
 
-volumes:
-  tmp-data:
+#####migrate
+  db-migrate-prod:
+    build: ./backend/dbvol/migrate
+
+    command: ["up"]
+    image: tamako8782/mytodoapp:db-migrate-prodv1 
+    environment:
+      - "MYSQL_HOST=${MYSQL_HOST}"
+      - "WAIT_HOSTS= ${MYSQL_HOST}:3306"
+      - "MIGRATIONS_DIR= /migrations"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+    volumes:
+          - ./backend/dbvol/migrate:/migrations
+      

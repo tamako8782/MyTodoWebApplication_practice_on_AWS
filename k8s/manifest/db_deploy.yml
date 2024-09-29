@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yamatodo-db
+  labels:
+    app: yamatodo-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yamatodo-db
+  template:
+    metadata:
+      labels:
+        app: yamatodo-db
+    spec:
+      containers:
+      - name: yama-db
+        image: mysql:8.2.0  # 使用するMySQLイメージ
+        ports:
+        - containerPort: 3306  # MySQLのポート
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: /var/lib/mysql  # データ永続化用のパス
+        - name: mysql-init-script
+          mountPath: /docker-entrypoint-initdb.d/init.sql
+          subPath: init.sql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "admin1234!"  # 環境変数の設定
+        - name: MYSQL_USER
+          value: "app"
+        - name: MYSQL_PASSWORD
+          value: "admin1234!"
+        - name: MYSQL_DATABASE
+          value: "yamamysql"
+        - name: TZ
+          value: "Asia/Tokyo"  # タイムゾーンの設定
+
+        resources:
+          limits:
+            memory: "1Gi"  # リミットを1Giに増やす
+            cpu: "1000m"
+
+      volumes:
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
+      - name: mysql-init-script
+        configMap:
+          name: mysql-init-script
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+spec:
+  capacity:
+    storage: 1Gi  # 必要なストレージサイズ
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: ./dbvol/data/db  # ホスト側のディレクトリ（Docker Composeの設定と同様）
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi  # PersistentVolumeのサイズと一致させる
+
+
+

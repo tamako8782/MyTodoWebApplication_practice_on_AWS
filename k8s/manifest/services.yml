@@ -24,3 +24,18 @@ spec:
   selector:
     app: yamatodo-back
   type: ClusterIP
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: yama-db
+spec:
+  ports:
+  - port: 3306
+    targetPort: 3306
+  selector:
+    app: yamatodo-db
+  type: ClusterIP
