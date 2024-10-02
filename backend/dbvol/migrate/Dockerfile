@@ -7,4 +7,5 @@ RUN apt-get update && apt-get upgrade -y && \
 
 COPY ./ /migrations
 
+
 CMD ["sh","-c","migrate -path migrations -database \"mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@tcp(${MYSQL_HOST}:3306)/${MYSQL_DATABASE}\" up" ]
