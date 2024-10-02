@@ -1,30 +1,10 @@
-# Stage 1: 開発環境用（Docker Compose向け）
-FROM migrate/migrate AS dev
+FROM ubuntu:22.04 AS prod
 
-# docker-compose-waitをダウンロードして、MySQLなどの依存が立ち上がるまで待つ
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.9.0/wait /wait
-RUN chmod +x /wait
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y curl gnupg2 vim git default-mysql-client && \
+    curl -L https://github.com/golang-migrate/migrate/releases/download/v4.11.0/migrate.linux-amd64.tar.gz | tar xvz && \
+    mv ./migrate.linux-amd64 /usr/bin/migrate
 
-# エントリーポイント用スクリプトを追加
-COPY entrypoint.sh /usr/local/bin
-RUN chmod +x /usr/local/bin/entrypoint.sh
+COPY ./ /migrations
 
-# マイグレーション用SQLファイルを追加
-COPY ./*.sql /migrations
-
-# エントリーポイントとして entrypoint.sh を実行
-ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
-
-
-# Stage 2: 本番環境用（Kubernetes向け）
-FROM migrate/migrate AS prod
-
-# 本番環境用はwaitは不要なので、シンプルにスクリプトとマイグレーションをコピー
-COPY entrypoint.sh /usr/local/bin
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
-# マイグレーション用SQLファイルを追加
-COPY ./*.sql /migrations
-
-# エントリーポイントとして entrypoint.sh を実行
-ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+CMD ["sh","-c","migrate -path migrations -database \"mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@tcp(${MYSQL_HOST}:3306)/${MYSQL_DATABASE}\" up" ]

@@ -50,7 +50,9 @@ services:
 
 #####migrate
   db-migrate:
-    build: ./backend/dbvol/migrate
+    build:
+      context: ./backend/dbvol/migrate
+      target: ${environment}
     depends_on:
         - db
     command: ["up"]
