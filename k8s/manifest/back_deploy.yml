@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: back-app
-        image: tamako8782/mytodoapp:back-prodv1
+        image: tamako8782/mytodoapp:back-prodv2
         imagePullPolicy: Always  # ここを追加
         
         resources:

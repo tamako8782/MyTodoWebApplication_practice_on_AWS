@@ -22,7 +22,7 @@ services:
       dockerfile: Dockerfile
       target: ${environment}
     container_name: go-app-prod
-    image: tamako8782/mytodoapp:back-prodv1 
+    image: tamako8782/mytodoapp:back-prodv2
     volumes:
     - ./backend/:/app/
     ports:
