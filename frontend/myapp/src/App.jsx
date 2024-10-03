@@ -5,13 +5,18 @@ import { DetailModal } from './compornents/DetailModal';
 
 
 export const App = ()=> {
+  //モーダル制御用
   const [showCreateModal,setShowCreateModal] = useState(false);
   const [showDetailModal,setShowDetailModal] = useState(false);
+  //タスクリスト制御用
   const [inCompTask,setInCompTask] = useState([]);
   const [finishTask,setFinishTask] = useState([]);
-  const apipath_env = process.env.REACT_APP_BACKEND_PATH;
+  
+  //エラー制御用
   const [error, setError] = useState(null);
-
+  
+  //apiパス定義用
+  const apipath_env = process.env.REACT_APP_BACKEND_PATH;
   const listpath  = apipath_env + "/task";
 
   //モーダル参照用のコード
