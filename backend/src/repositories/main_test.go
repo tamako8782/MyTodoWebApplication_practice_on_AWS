@@ -76,7 +76,7 @@ func TestMain(m *testing.M) {
 }
 
 func cleanupDB() error {
-	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "-e", fmt.Sprintf("source /app/src/%s", dbCleanFile))
+	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "-e", fmt.Sprintf("source ../%s", dbCleanFile))
 	if err := cmd.Run(); err != nil {
 		return err
 	}
@@ -84,7 +84,7 @@ func cleanupDB() error {
 }
 
 func setupDB() error {
-	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "-e", fmt.Sprintf("source /app/src/%s", dbSetupFile))
+	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "-e", fmt.Sprintf("source ../%s", dbSetupFile))
 
 	if err := cmd.Run(); err != nil {
 		return err
