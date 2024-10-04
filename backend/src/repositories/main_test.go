@@ -13,7 +13,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var testData = []models.MyTodo{
+var TestData = []models.MyTodo{
 	{
 		ID:    1,
 		Title: "test Todo",
@@ -26,14 +26,18 @@ var testData = []models.MyTodo{
 }
 
 var testDB *sql.DB
+var (
+	dbUser      = os.Getenv("MYSQL_USER")
+	dbPassword  = os.Getenv("MYSQL_PASSWORD")
+	dbDatabase  = os.Getenv("MYSQL_DATABASE")
+	dbHost      = os.Getenv("MYSQL_HOST")
+	dbCleanFile = "cleanupDB.sql"
+	dbSetupFile = "setupDB.sql"
+
+	dbConn = fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?parseTime=true", dbUser, dbPassword, dbHost, dbDatabase)
+)
 
 func startUpTestDb() error {
-	dbUser := os.Getenv("MYSQL_USER")
-	dbPassword := os.Getenv("MYSQL_PASSWORD")
-	dbDatabase := os.Getenv("MYSQL_DATABASE")
-	dbHost := os.Getenv("MYSQL_HOST")
-
-	dbConn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?parseTime=true", dbUser, dbPassword, dbHost, dbDatabase)
 
 	var err error
 	testDB, err = sql.Open("mysql", dbConn)
@@ -72,7 +76,7 @@ func TestMain(m *testing.M) {
 }
 
 func cleanupDB() error {
-	cmd := exec.Command("mysql", "-h", "yama-db", "-u", "app", "yamamysql", "--password=admin1234!", "-e", "source /app/src/cleanupDB.sql")
+	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "-e", fmt.Sprintf("source /app/src/%s", dbCleanFile))
 	if err := cmd.Run(); err != nil {
 		return err
 	}
@@ -80,7 +84,8 @@ func cleanupDB() error {
 }
 
 func setupDB() error {
-	cmd := exec.Command("mysql", "-h", "yama-db", "-u", "app", "yamamysql", "--password=admin1234!", "-e", "source /app/src/setupDB.sql")
+	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "-e", fmt.Sprintf("source /app/src/%s", dbSetupFile))
+
 	if err := cmd.Run(); err != nil {
 		return err
 	}
