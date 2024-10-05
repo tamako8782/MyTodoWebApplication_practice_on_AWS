@@ -31,8 +31,9 @@ jobs:
     # kustomizeを使ってk8s/manifest_2/basesディレクトリをビルドし、その結果をkubeconformでバリデーションする。
     # kubeconformがデフォルトのKubernetesスキーマを使用してバリデーションするように指定。
     # リソース種別とAPIバージョンに基づいたスキーマを使用するように指定。
+    # バリデーション結果をJSON形式で出力。
     - run: |
         kustomize build k8s/manifest_2/bases | kubeconform -summary \  
         -schema-location default \  
         -schema-location "schemas/{{ .ResourceKind }}_{{ .ResourceAPIVersion }}.json" \  
-        -output json  # バリデーション結果をJSON形式で出力。
+        -output json  
