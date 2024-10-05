@@ -1,0 +1,46 @@
+name: Kubernetes Manifest Validation
+
+on:
+  push:
+    paths:
+      - 'k8s/manifest_2/**'  # k8s/manifest_2配下の変更時にトリガー
+  pull_request:
+    paths:
+      - 'k8s/manifest_2/**'  # PR時にもトリガー
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. リポジトリのコードをチェックアウト
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # 2. Kustomizeをインストール
+    - name: Install Kustomize
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y kustomize
+
+    # 3. Kubeconformをインストール
+    - name: Install Kubeconform
+      run: |
+        curl -L -o kubeconform https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64
+        chmod +x kubeconform
+        sudo mv kubeconform /usr/local/bin/
+
+    # 4. basesディレクトリのバリデーション
+    - name: Validate bases with Kustomize and Kubeconform
+      run: |
+        kustomize build k8s/manifest_2/bases | kubeconform -strict
+
+    ### 5. stagingオーバーレイのバリデーション
+    ##- name: Validate staging overlay with Kustomize and Kubeconform
+    ##  run: |
+    ##    kustomize build k8s/manifest_2/overlays/staging | kubeconform -strict
+
+    ### 6. developmentオーバーレイのバリデーション
+    ##- name: Validate development overlay with Kustomize and Kubeconform
+    ##  run: |
+    ##    kustomize build k8s/manifest_2/overlays/development | kubeconform -strict
