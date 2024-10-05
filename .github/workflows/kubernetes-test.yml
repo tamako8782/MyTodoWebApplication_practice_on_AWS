@@ -14,30 +14,20 @@ jobs:
 
     steps:
     # 1. リポジトリのコードをチェックアウト
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-    # 2. Goをセットアップ
-    - name: Set up Go
-      uses: actions/setup-go@v3
+    # 2. kubeconform と kustomize をセットアップ
+    - uses: yokawasa/action-setup-kube-tools@v0.9.2
       with:
-        go-version: '1.18'  # 必要なGoのバージョンを指定
+        setup-tools: |
+          kubeconform
+          kustomize
+        kubeconform: '0.5.0'
+        kustomize: '5.0.0'
 
-    # 3. Kustomizeをインストール
-    - name: Install Kustomize
-      run: |
-        curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
-        sudo mv kustomize /usr/local/bin/
-
-    # 4. KubeconformをGoでインストール
-    - name: Install Kubeconform with Go
-      run: |
-        go install github.com/yannh/kubeconform/cmd/kubeconform@v0.4.13
-      env:
-        GOBIN: ${{ github.workspace }}/bin  # インストール先をワークスペース内に設定
-        PATH: ${{ github.workspace }}/bin:${{ env.PATH }}  # インストールしたディレクトリをPATHに追加
-
-    # 5. basesディレクトリのバリデーション
-    - name: Validate bases with Kustomize and Kubeconform
-      run: |
-        kustomize build k8s/manifest_2/bases | kubeconform -strict
+    # 3. basesディレクトリのバリデーション
+    - run: |
+        kustomize build k8s/manifest_2/bases | kubeconform -summary \
+        -schema-location default \
+        -schema-location "schemas/{{ .ResourceKind }}_{{ .ResourceAPIVersion }}.json" \
+        -output json
