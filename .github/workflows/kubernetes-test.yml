@@ -20,8 +20,8 @@ jobs:
     # 2. Kustomizeをインストール
     - name: Install Kustomize
       run: |
-        sudo apt-get update
-        sudo apt-get install -y kustomize
+        curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+        sudo mv kustomize /usr/local/bin/
 
     # 3. Kubeconformをインストール
     - name: Install Kubeconform
