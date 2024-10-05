@@ -3,10 +3,10 @@ name: Kubernetes Manifest Validation
 on:
   push:
     paths:
-      - 'k8s/manifest_2/**'
+      - 'k8s/manifest_2/**'  # k8s/manifest_2配下の変更時にトリガー
   pull_request:
     paths:
-      - 'k8s/manifest_2/**'
+      - 'k8s/manifest_2/**'  # PR時にもトリガー
 
 jobs:
   validate:
@@ -21,7 +21,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
-        go-version: '1.18'
+        go-version: '1.18'  # 必要なGoのバージョンを指定
 
     # 3. Kustomizeをインストール
     - name: Install Kustomize
@@ -34,8 +34,8 @@ jobs:
       run: |
         go install github.com/yannh/kubeconform/cmd/kubeconform@v0.4.13
       env:
-        GOBIN: ${{ github.env.GOROOT }}/bin  # Goバイナリのインストールディレクトリを設定
-        PATH: ${{ github.env.GOROOT }}/bin:${{ env.PATH }}
+        GOBIN: ${{ github.workspace }}/bin  # インストール先をワークスペース内に設定
+        PATH: ${{ github.workspace }}/bin:${{ env.PATH }}  # インストールしたディレクトリをPATHに追加
 
     # 5. basesディレクトリのバリデーション
     - name: Validate bases with Kustomize and Kubeconform
