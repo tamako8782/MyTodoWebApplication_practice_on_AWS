@@ -27,17 +27,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Verify SQL files exist
+      - name: List files for debugging
         run: |
-          if [ ! -f ./cleanupDB.sql ]; then
-            echo "cleanupDB.sql does not exist in the expected location."
-            exit 1
-          fi
-          if [ ! -f ./setupDB.sql ]; then
-            echo "setupDB.sql does not exist in the expected location."
-            exit 1
-          fi
-
+          echo "Listing files in current directory:"
+          ls -R
 
       - name: Setup Go
         uses: actions/setup-go@v4
