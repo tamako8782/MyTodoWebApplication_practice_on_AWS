@@ -3,10 +3,10 @@ name: Kubernetes Manifest Validation
 on:
   push:
     paths:
-      - 'k8s/manifest_2/**'  # k8s/manifest_2配下の変更時にトリガー
+      - 'k8s/manifest_2/**'
   pull_request:
     paths:
-      - 'k8s/manifest_2/**'  # PR時にもトリガー
+      - 'k8s/manifest_2/**'
 
 jobs:
   validate:
@@ -21,7 +21,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
-        go-version: '1.18'  # 必要なGoのバージョンを指定
+        go-version: '1.18'
 
     # 3. Kustomizeをインストール
     - name: Install Kustomize
@@ -34,20 +34,10 @@ jobs:
       run: |
         go install github.com/yannh/kubeconform/cmd/kubeconform@v0.4.13
       env:
-        GOBIN: ${{ github.workspace }}/bin
-        PATH: ${{ github.workspace }}/bin:${{ env.PATH }}
+        GOBIN: ${{ github.env.GOROOT }}/bin  # Goバイナリのインストールディレクトリを設定
+        PATH: ${{ github.env.GOROOT }}/bin:${{ env.PATH }}
 
     # 5. basesディレクトリのバリデーション
     - name: Validate bases with Kustomize and Kubeconform
       run: |
         kustomize build k8s/manifest_2/bases | kubeconform -strict
-
-    ### 6. stagingオーバーレイのバリデーション (コメントアウトされている)
-    ## - name: Validate staging overlay with Kustomize and Kubeconform
-    ##   run: |
-    ##     kustomize build k8s/manifest_2/overlays/staging | kubeconform -strict
-
-    ### 7. developmentオーバーレイのバリデーション (コメントアウトされている)
-    ## - name: Validate development overlay with Kustomize and Kubeconform
-    ##   run: |
-    ##     kustomize build k8s/manifest_2/overlays/development | kubeconform -strict
