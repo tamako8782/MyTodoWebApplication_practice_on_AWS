@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yamatodo-back
+  labels:
+    app: yamatodo-back
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: yamatodo-back
+  template:
+    metadata:
+      labels:
+        app: yamatodo-back
+    spec:
+      initContainers:           # 修正: データベースが準備完了になるまで待機するinitContainer
+      - name: wait-for-db
+        image: busybox
+        command: ['sh', '-c', 'until nslookup yama-db.default.svc.cluster.local; do echo waiting for db; sleep 5; done;sleep 10'] #nslookupが成功して名前解決できた後、さらに10秒間待機
+      containers:
+      - name: back-app
+        image: tamako8782/mytodoapp:back-prodv2
+        imagePullPolicy: Always  # ここを追加
+        
+        resources:
+          limits:
+            memory: "512Mi"  # リクエストを512Miに増やす
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MYSQL_DATABASE
+          value: "yamamysql"
+        - name: MYSQL_HOST
+          value: "yama-db"
+        - name: MYSQL_USER
+          value: "app"
+        - name: MYSQL_PASSWORD
+          value: "admin1234!" 
+        - name: MYSQL_PORT
+          value: "3306"
+      imagePullSecrets:
+      - name: yamasec
