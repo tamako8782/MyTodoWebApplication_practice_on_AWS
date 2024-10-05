@@ -26,7 +26,8 @@ jobs:
     # 3. Kubeconformをインストール
     - name: Install Kubeconform
       run: |
-        curl -L -o kubeconform https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64
+        curl -L -o kubeconform https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz
+        tar -xzf kubeconform-linux-amd64.tar.gz
         chmod +x kubeconform
         sudo mv kubeconform /usr/local/bin/
 
