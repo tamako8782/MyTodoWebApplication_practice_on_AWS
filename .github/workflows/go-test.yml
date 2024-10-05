@@ -27,6 +27,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Verify SQL files exist
+        run: |
+          if [ ! -f ./cleanupDB.sql ]; then
+            echo "cleanupDB.sql does not exist in the expected location."
+            exit 1
+          fi
+          if [ ! -f ./setupDB.sql ]; then
+            echo "setupDB.sql does not exist in the expected location."
+            exit 1
+          fi
+
+
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
