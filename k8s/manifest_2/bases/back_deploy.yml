@@ -42,4 +42,3 @@ spec:
           value: "3306"
       imagePullSecrets:
       - name: yamasec
-#

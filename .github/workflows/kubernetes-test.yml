@@ -1,39 +1,33 @@
-name: Kubernetes Manifest Validation  # ワークフローの名前。GitHub Actionsのワークフローの一覧で表示されます。
+name: Kubernetes Manifest Validation
 
 on:
   push:
     paths:
-      - 'k8s/manifest_2/**'  # 'k8s/manifest_2'配下のファイルが変更された際に、このワークフローがトリガーされる。
+      - 'k8s/manifest_2/**'  # k8s/manifest_2配下の変更時にトリガー
   pull_request:
     paths:
-      - 'k8s/manifest_2/**'  # 'k8s/manifest_2'配下に対するプルリクエストが作成または更新された際に、このワークフローがトリガーされる。
+      - 'k8s/manifest_2/**'  # PR時にもトリガー
 
 jobs:
-  validate:  # ジョブの名前。バリデーションプロセスのジョブを定義。
-    runs-on: ubuntu-latest  # ジョブを実行する環境（Ubuntuの最新バージョン）を指定。
+  validate:
+    runs-on: ubuntu-latest
 
     steps:
     # 1. リポジトリのコードをチェックアウト
-    - uses: actions/checkout@v3  # GitHubリポジトリのコードをアクションの実行環境にチェックアウトするための公式アクション。
+    - uses: actions/checkout@v3
 
     # 2. kubeconform と kustomize をセットアップ
-    - uses: yokawasa/action-setup-kube-tools@v0.9.2  # yokawasaのアクションを使用して、Kubernetes関連のツールをセットアップする。
+    - uses: yokawasa/action-setup-kube-tools@v0.9.2
       with:
-      # kubeconform（Kubernetesリソースマニフェストのバリデーションツール）をセットアップ。
-      # kustomize（Kubernetesマニフェストのカスタマイズツール）をセットアップ。
         setup-tools: |
-          kubeconform  
-          kustomize  
-        kubeconform: '0.5.0'  # kubeconformのバージョンを0.5.0に指定。
-        kustomize: '5.0.0'  # kustomizeのバージョンを5.0.0に指定。
+          kubeconform
+          kustomize
+        kubeconform: '0.5.0'
+        kustomize: '5.0.0'
 
     # 3. basesディレクトリのバリデーション
-    # kustomizeを使ってk8s/manifest_2/basesディレクトリをビルドし、その結果をkubeconformでバリデーションする。
-    # kubeconformがデフォルトのKubernetesスキーマを使用してバリデーションするように指定。
-    # リソース種別とAPIバージョンに基づいたスキーマを使用するように指定。
-    # バリデーション結果をJSON形式で出力。
     - run: |
-        kustomize build k8s/manifest_2/bases | kubeconform -summary \  
-        -schema-location default \  
-        -schema-location "schemas/{{ .ResourceKind }}_{{ .ResourceAPIVersion }}.json" \  
-        -output json  
+        kustomize build k8s/manifest_2/bases | kubeconform -summary \
+        -schema-location default \
+        -schema-location "schemas/{{ .ResourceKind }}_{{ .ResourceAPIVersion }}.json" \
+        -output json
