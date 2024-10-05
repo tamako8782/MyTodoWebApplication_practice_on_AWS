@@ -76,7 +76,7 @@ func TestMain(m *testing.M) {
 }
 
 func cleanupDB() error {
-	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "-e", fmt.Sprintf("source ../%s", dbCleanFile))
+	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "--protocol=tcp", "-e", fmt.Sprintf("source ../%s", dbCleanFile))
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
@@ -87,7 +87,7 @@ func cleanupDB() error {
 }
 
 func setupDB() error {
-	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "-e", fmt.Sprintf("source ../%s", dbSetupFile))
+	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "--protocol=tcp", "-e", fmt.Sprintf("source ../%s", dbSetupFile))
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
