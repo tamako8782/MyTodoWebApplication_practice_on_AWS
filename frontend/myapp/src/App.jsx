@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import './App.css';
 import { CreateModal } from './compornents/CreateModal';
 import { DetailModal } from './compornents/DetailModal';
+
+export const TaskContext = createContext();
 
 
 export const App = ()=> {
@@ -19,6 +21,7 @@ export const App = ()=> {
   //apiパス定義用
   const apipath_env = process.env.REACT_APP_BACKEND_PATH;
   const listpath  = apipath_env + "/task";
+  const createpath  = apipath_env + "/task/create";
 
   //モーダル参照用のコード(新規作成)
   const ShowCreateModal =()=> {
@@ -55,8 +58,10 @@ export const App = ()=> {
 
   //以下HTML表示
   return (
+    <TaskContext.Provider value={createpath}>
     <>
     <header>
+    
       <div className='title'>
         <h1>My<span className='titlespan'>Todo</span>Application</h1>
         <p>Optimize your tasks with this todo list!</p>
@@ -133,6 +138,7 @@ export const App = ()=> {
       
     </footer>
     </>
+    </TaskContext.Provider>
   );
 }
 
