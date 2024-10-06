@@ -27,11 +27,10 @@ export const CreateModal = (props) => {
                 <div className={classes.taskstate}>
                   <p>state</p>
                   <select>
-                    <option value="incomplete">today task</option>
-                    <option value="complete">not do task</option>
+                    <option value="InComplete">today task</option>
+                    <option value="NotDoTask">not do task</option>
                   </select><br/>
                 </div>
-
 
                 <button className={classes.cancelbutton} onClick={closeCreateModal}>Cancel</button>
                 <button className={classes.submitbutton}  onClick={closeCreateModal}>Submit</button>

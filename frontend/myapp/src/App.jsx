@@ -101,8 +101,6 @@ export const App = ()=> {
             <button className="edit-button">edit</button>
             <button onClick={ShowDetailModal} className="detail-button">detail</button>
             <DetailModal  showFlag={showDetailModal} setShowDetailModal={setShowDetailModal}/>
-
-
           </li>
         ))}
         </ul>
@@ -122,8 +120,6 @@ export const App = ()=> {
             <button className="edit-button">edit</button>
             <button onClick={ShowDetailModal} className="detail-button">detail</button>
             <DetailModal  showFlag={showDetailModal} setShowDetailModal={setShowDetailModal}/>
-
-
           </li>
         ))}
         </ul>
