@@ -13,12 +13,25 @@ export const DetailModal = (props) => {
         {props.showFlag ? (
             <div className={classes.overlay}>
               <div className={classes.modalcontent}>
-                <p>This is a detail task</p>
-                  <p>title</p>
-                  <p>content</p>
-                  <p>state</p>
-                  <p>createat</p>
-                  <p>updateat</p>
+                <h2>detail task</h2>
+                  <div className={classes.detailtasks}>
+                    <ul>
+                      <li>title</li>
+                      <p>hoge</p>
+                      <li>content</li>
+                      <p>
+                        hoge <br/>
+                        hoge 
+                      
+                      </p>
+                      <li>state</li>
+                      <p>hoge</p>
+                      <li>create at</li>
+                      <p>2024/10/10 09:00:00</p>
+                      <li>update ad</li>
+                      <p>2024/10/10 09:00:00</p>
+                    </ul>
+                  </div>
                   <button onClick={closeDetailModal}>complete</button>
                 <button onClick={closeDetailModal}>back</button>
                 <button onClick={closeDetailModal}>edit</button>

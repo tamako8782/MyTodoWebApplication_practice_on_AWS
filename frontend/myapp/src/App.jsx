@@ -11,6 +11,7 @@ export const App = ()=> {
   //タスクリスト制御用
   const [inCompTask,setInCompTask] = useState([]);
   const [finishTask,setFinishTask] = useState([]);
+  const [notDoTask,setNotDoTask] = useState([]);
   
   //エラー制御用
   const [error, setError] = useState(null);
@@ -19,11 +20,11 @@ export const App = ()=> {
   const apipath_env = process.env.REACT_APP_BACKEND_PATH;
   const listpath  = apipath_env + "/task";
 
-  //モーダル参照用のコード
+  //モーダル参照用のコード(新規作成)
   const ShowCreateModal =()=> {
     setShowCreateModal(true);
   };
-
+//モーダル参照用のコード(詳細閲覧)
   const ShowDetailModal =()=> {
     setShowDetailModal(true);
   };
@@ -39,6 +40,7 @@ export const App = ()=> {
       })
       .then(data =>{
         const inpro = data.filter(task => task.state === "InComplete");
+        const notDo = data.filter(task => task.state === "NotDoTask");
         const fin = data.filter(task => task.state === "Finished");
         setInCompTask(inpro);
         setFinishTask(fin);
@@ -67,9 +69,9 @@ export const App = ()=> {
       </div>
 
     <div className='incompletetask'>
-      <p>incompletetask</p>
+      {/*今日やる6つのタスクの枠*/}
+      <p>Today's 6 Tasks</p>
       <ul>
-        {/*ここにタスクリストが一覧表示*/}
         {inCompTask.map(task => (
           <li key={task.id}>
           <p>
@@ -78,31 +80,58 @@ export const App = ()=> {
             <button className="comp-button">complete</button>
             <button onClick={ShowDetailModal} className="detail-button">detail</button>
             <DetailModal showFlag={showDetailModal} setShowDetailModal={setShowDetailModal}/>
-
-
           </li>
-
         ))}
       </ul>
     </div>
-    <div className='finishedtask'>
-      <p>finishedtask</p>
-      <ul>
-        {/*ここにタスクリストが一覧表示*/}
-        {finishTask.map(task => (
-        <li key={task.id}>
-        <p>
-          {task.title}
-          </p>
+    <div className='lower-task'>
+      <div className='not-do-tasks'>
+        {/*今日は手をつけないタスクの枠*/}
+        <p>not do this tasks</p>
+        <ul>
+          <li>
+          <p>test</p>
           <button className="restore-button">restore</button>
-          <button onClick={ShowDetailModal} className="detail-button">detail</button>
-          <DetailModal  showFlag={showDetailModal} setShowDetailModal={setShowDetailModal}/>
+            <button onClick={ShowDetailModal} className="detail-button">detail</button>
+            <DetailModal  showFlag={showDetailModal} setShowDetailModal={setShowDetailModal}/>
+
+          </li>
+          
+          {/*notDoTask.map(task => (
+          <li key={task.id}>
+          <p>
+            {task.title}
+            </p>
+            <button className="restore-button">restore</button>
+            <button onClick={ShowDetailModal} className="detail-button">detail</button>
+            <DetailModal  showFlag={showDetailModal} setShowDetailModal={setShowDetailModal}/>
 
 
-        </li>
-      ))}
-      </ul>
+          </li>
+        ))*/}
+        </ul>
 
+      </div>
+      <div className='finishedtask'>
+        {/*完了済みタスクの枠*/}
+        <p>finished task</p>
+        <ul>
+        
+          {finishTask.map(task => (
+          <li key={task.id}>
+          <p>
+            {task.title}
+            </p>
+            <button className="restore-button">restore</button>
+            <button onClick={ShowDetailModal} className="detail-button">detail</button>
+            <DetailModal  showFlag={showDetailModal} setShowDetailModal={setShowDetailModal}/>
+
+
+          </li>
+        ))}
+        </ul>
+
+      </div>
     </div>
 
 

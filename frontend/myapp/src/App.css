@@ -18,25 +18,33 @@ header {
 
 }
 
-
+/*画面の青白いとこ*/
 main {
   /*一旦検討
   display: flex; 
   */
+  display: flex;
+  flex-direction: column; /* 上下に配置 */
   font-size: 30px;
 }
 
+
+
 li {
+
   list-style-type: none;
   justify-content: space-between;
+  width:90% ;
+  align-items: center; /* タスク名とボタンの縦方向を揃える */
+
 
 }
 
-
+/*タスクの中身の配置とか*/
 main li {
   border: 1px solid #2f5167;
-  padding-left: 8px;
-  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-bottom: 8px;
   border-radius: 9px;
 }
 
@@ -51,6 +59,12 @@ button {
 }
 
 
+input {
+  margin: 0;  /* inputタグの上下の余白をリセット */
+  padding: 5px;  /* 必要に応じて調整 */
+}
+
+/*title関連*/
 .title {
   background-color: #2f5167;
   height: 94px;
@@ -61,8 +75,6 @@ button {
   padding-top: 5px;
   padding-left:10px;
   padding-bottom: 0%;
-  
-  
 }
 
 .titlespan {
@@ -74,9 +86,9 @@ button {
   padding-top: 0%;
   padding-bottom: 10px;
   padding-left:15px;
-  
 }
 
+/*タスク作成ボタン関連*/
 .createtask{
     margin-top:20px;
     margin-left:30px;
@@ -85,25 +97,39 @@ button {
 
 .createtask button {
   background-color: cornflowerblue;
+  font-size: 30px;
+  height: auto;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .createtask button:hover {
   background-color:darkblue;
   color:#fff;
 }
 
-.incompletetask,.finishedtask{
-  min-height: 200px;
-  width:48%;
+/*下段のタスク*/
+.lower-task{
+  display: flex; 
+  align-items: stretch; /* 高さを自動で揃える */
+}
+
+
+.not-do-tasks, .finishedtask {
+  flex-grow: 1; /* 幅の自動調整で要素が均等に広がる */
+  min-height: 200px; /* 最小高さの指定 */
+}
+
+/*着手中の6つのタスク*/
+.incompletetask {
+  min-height: 300px;
+  width: 97%;
   border: 1px solid #ccc;
   padding: 10px;
   margin:8px;
   border-radius: 9px;
- 
-}
-
-.incompletetask {
   background-color:palegoldenrod;
   color:saddlebrown;
+ 
 }
 
 .incompletetask  li{
@@ -112,7 +138,33 @@ button {
 }
 
 
+/*今日やらないタスク*/
+.not-do-tasks{
+  min-height: 200px;
+  width:60%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin:8px;
+  border-radius: 9px;
+  background-color:rgb(157, 250, 161);
+  color:saddlebrown;
+ 
+}
+
+.not-do-tasks  li{
+  background-color:rgb(3, 181, 3)
+
+}
+
+
+/*完了済みタスク*/
 .finishedtask{
+  min-height: 200px;
+  width:34%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin:8px;
+  border-radius: 9px;
   background-color:lightgrey;
 
 }
@@ -122,6 +174,7 @@ button {
 }
 
 
+/*フッター一応作ったがいつ実装すんだ*/
 footer {
   font-size: 30px;
 }
