@@ -35,3 +35,28 @@ func ListTaskRepo(db *sql.DB, page int) ([]models.MyTodo, error) {
 	return taskArray, nil
 
 }
+
+func CreateTaskRepo(db *sql.DB, task models.MyTodo) (models.MyTodo, error) {
+	sqlStr := `
+	insert into task (title, contents,task_state) 
+	values 
+	(?,?,?);
+	`
+
+	var createTask models.MyTodo
+	createTask.Title = task.Title
+	createTask.Content = task.Content
+	createTask.State = task.State
+
+	result, err := db.Exec(sqlStr, task.Title, task.Content, task.State)
+	if err != nil {
+		log.Println(err)
+		return models.MyTodo{}, err
+	}
+
+	taskId, _ := result.LastInsertId()
+	createTask.ID = int(taskId)
+
+	return createTask, nil
+
+}

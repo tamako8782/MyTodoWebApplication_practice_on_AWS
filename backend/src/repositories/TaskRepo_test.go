@@ -23,3 +23,27 @@ func TestListTaskRepo(t *testing.T) {
 	}
 
 }
+
+func TestCreateTaskRepo(t *testing.T) {
+	testTask := TestData[0]
+
+	exceptedNum := 4
+
+	exec, err := repositories.CreateTaskRepo(testDB, testTask)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if exec.ID != exceptedNum {
+		t.Errorf("new task id is expected %d but got %d \n", exceptedNum, exec.ID)
+	}
+
+	t.Cleanup(func() {
+		const sqlStr = `
+		delete from task
+		where task_id=?;
+		`
+		testDB.Exec(sqlStr, exec.ID)
+	})
+
+}

@@ -2,10 +2,10 @@ package controllers
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 	"strconv"
 
+	"github.com/tamako8782/MyTodoWebApplication_practice/models"
 	"github.com/tamako8782/MyTodoWebApplication_practice/services"
 )
 
@@ -32,8 +32,6 @@ func (c MyTaskControllers) ListTaskHandler(w http.ResponseWriter, r *http.Reques
 		page = 1
 	}
 
-	log.Println(page)
-
 	taskList, err := c.s.ListTaskService(page)
 	if err != nil {
 		http.Error(w, "internal exec ", http.StatusInternalServerError)
@@ -41,5 +39,25 @@ func (c MyTaskControllers) ListTaskHandler(w http.ResponseWriter, r *http.Reques
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(taskList)
+
+}
+
+func (c MyTaskControllers) CreateTaskHandler(w http.ResponseWriter, r *http.Request) {
+
+	var reqTask models.MyTodo
+
+	if err := json.NewDecoder(r.Body).Decode(&reqTask); err != nil {
+		http.Error(w, "Decode failed", http.StatusBadRequest)
+		return
+	}
+
+	task, err := c.s.CreateTaskService(reqTask)
+	if err != nil {
+		http.Error(w, "internal exec", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(task)
 
 }

@@ -23,6 +23,7 @@ func main() {
 	c := controllers.NewMyTaskControllers(s)
 
 	r.HandleFunc("/task", c.ListTaskHandler).Methods(http.MethodGet)
+	r.HandleFunc("/task/create", c.CreateTaskHandler).Methods(http.MethodPost)
 
 	co := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"}, // ReactアプリのURL

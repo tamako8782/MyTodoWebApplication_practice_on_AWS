@@ -107,3 +107,14 @@
     border: 1px solid darkslategrey !important;
     font-size: 15px;
   }
+
+  .successMessage {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .errorMessage {
+    color: red;
+    font-weight: bold;
+  }
+  

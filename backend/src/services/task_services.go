@@ -17,3 +17,14 @@ func (s MyTaskService) ListTaskService(page int) ([]models.MyTodo, error) {
 
 	return Tasks, nil
 }
+
+func (s MyTaskService) CreateTaskService(task models.MyTodo) (models.MyTodo, error) {
+
+	addtask, err := repositories.CreateTaskRepo(s.db, task)
+	if err != nil {
+		log.Println(err)
+		return models.MyTodo{}, err
+	}
+
+	return addtask, nil
+}
