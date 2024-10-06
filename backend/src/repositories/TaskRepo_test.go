@@ -9,7 +9,7 @@ import (
 
 func TestListTaskRepo(t *testing.T) {
 
-	expectedNum := 2
+	expectedNum := 3
 	log.Println("test")
 	got, err := repositories.ListTaskRepo(testDB, 1)
 	if err != nil {

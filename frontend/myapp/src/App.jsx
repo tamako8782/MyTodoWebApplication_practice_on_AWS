@@ -79,6 +79,7 @@ export const App = ()=> {
             {task.title}
           </p>
             <button className="comp-button">complete</button>
+            <button className="edit-button">edit</button>
             <button onClick={ShowDetailModal} className="detail-button">detail</button>
             <DetailModal showFlag={showDetailModal} setShowDetailModal={setShowDetailModal}/>
           </li>
@@ -90,22 +91,14 @@ export const App = ()=> {
         {/*今日は手をつけないタスクの枠*/}
         <p>not do this tasks</p>
         <ul>
-          {/*
-          <li>
-            
-          <p>test</p>
-          <button className="restore-button">restore</button>
-            <button onClick={ShowDetailModal} className="detail-button">detail</button>
-            <DetailModal  showFlag={showDetailModal} setShowDetailModal={setShowDetailModal}/>
-            
-          </li>
-          */}
+
           {notDoTask.map(task => (
           <li key={task.id}>
           <p>
             {task.title}
             </p>
-            <button className="restore-button">restore</button>
+            <button className="dotoday-button">do today!</button>
+            <button className="edit-button">edit</button>
             <button onClick={ShowDetailModal} className="detail-button">detail</button>
             <DetailModal  showFlag={showDetailModal} setShowDetailModal={setShowDetailModal}/>
 
@@ -126,6 +119,7 @@ export const App = ()=> {
             {task.title}
             </p>
             <button className="restore-button">restore</button>
+            <button className="edit-button">edit</button>
             <button onClick={ShowDetailModal} className="detail-button">detail</button>
             <DetailModal  showFlag={showDetailModal} setShowDetailModal={setShowDetailModal}/>
 
