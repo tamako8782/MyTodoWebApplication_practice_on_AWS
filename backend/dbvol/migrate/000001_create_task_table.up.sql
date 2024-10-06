@@ -16,3 +16,7 @@ insert into task (title, contents,task_state, created_at) values
 insert into task (title, contents,task_state, created_at) values 
 
     ('SecondTask', 'This is my second task',"Finished", now());
+
+insert into task (title, contents,task_state, created_at) values 
+
+    ('ThirdTask', 'This is my third task',"NotDoTask", now());

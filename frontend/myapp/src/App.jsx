@@ -44,6 +44,7 @@ export const App = ()=> {
         const fin = data.filter(task => task.state === "Finished");
         setInCompTask(inpro);
         setFinishTask(fin);
+        setNotDoTask(notDo);
       })
       .catch(error => {
         setError(error); // エラーがあればエラーメッセージをセット
@@ -89,15 +90,17 @@ export const App = ()=> {
         {/*今日は手をつけないタスクの枠*/}
         <p>not do this tasks</p>
         <ul>
+          {/*
           <li>
+            
           <p>test</p>
           <button className="restore-button">restore</button>
             <button onClick={ShowDetailModal} className="detail-button">detail</button>
             <DetailModal  showFlag={showDetailModal} setShowDetailModal={setShowDetailModal}/>
-
+            
           </li>
-          
-          {/*notDoTask.map(task => (
+          */}
+          {notDoTask.map(task => (
           <li key={task.id}>
           <p>
             {task.title}
@@ -108,7 +111,7 @@ export const App = ()=> {
 
 
           </li>
-        ))*/}
+        ))}
         </ul>
 
       </div>
