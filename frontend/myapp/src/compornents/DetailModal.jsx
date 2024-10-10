@@ -11,36 +11,27 @@ export const DetailModal = (props) => {
     return (
       <>
         {props.showFlag ? (
-            <div className={classes.overlay}>
-              <div className={classes.modalcontent}>
-                <h2>detail task</h2>
-                  <div className={classes.detailtasks}>
-                    <ul>
-                      <li>title</li>
-                      <p>hoge</p>
-                      <li>content</li>
-                      <p>
-                        hoge <br/>
-                        hoge 
-                      
-                      </p>
-                      <li>state</li>
-                      <p>hoge</p>
-                      <li>create at</li>
-                      <p>2024/10/10 09:00:00</p>
-                      <li>update ad</li>
-                      <p>2024/10/10 09:00:00</p>
-                    </ul>
-                  </div>
-                  <button onClick={closeDetailModal}>complete</button>
-                <button onClick={closeDetailModal}>back</button>
-                <button onClick={closeDetailModal}>edit</button>
-                <button onClick={closeDetailModal}>delete</button>
+          <div className={classes.overlay}>
+            <div className={classes.modalcontent}>
+              <h2>detail task</h2>
+              <div className={classes.detailtasks}>
+                <ul>
+                  <li>title</li>
+                  <p>{props.task.title}</p>
+                  <li>content</li>
+                  <p>{props.task.content}</p>
+                  <li>state</li>
+                  <p>{props.task.state}</p>
+                  <li>create at</li>
+                  <p>{props.task.created_at}</p>
+                  <li>update at</li>
+                  <p>{props.task.updated_at}</p>
+                </ul>
               </div>
+              <button onClick={closeDetailModal}>close</button>
             </div>
-        ):(
-            <></>
-        )}
+          </div>
+        ) : null}
       </>
-    )
-  }
+    );
+  };

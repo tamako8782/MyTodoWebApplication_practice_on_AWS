@@ -5,7 +5,7 @@ metadata:
   labels:
     app: yamatodo-back
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: yamatodo-back

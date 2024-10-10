@@ -20,24 +20,16 @@ header {
 
 /*画面の青白いとこ*/
 main {
-  /*一旦検討
-  display: flex; 
-  */
   display: flex;
   flex-direction: column; /* 上下に配置 */
   font-size: 30px;
 }
 
-
-
 li {
-
   list-style-type: none;
   justify-content: space-between;
   width:90% ;
   align-items: center; /* タスク名とボタンの縦方向を揃える */
-
-
 }
 
 /*タスクの中身の配置とか*/
@@ -48,16 +40,12 @@ main li {
   border-radius: 9px;
 }
 
-
-
-
 button {
   border-radius: 3px;
   border:1px solid  #2f5167;
   height:20px;
 
 }
-
 
 input {
   margin: 0;  /* inputタグの上下の余白をリセット */
@@ -113,7 +101,6 @@ input {
   align-items: stretch; /* 高さを自動で揃える */
 }
 
-
 .not-do-tasks, .finishedtask {
   flex-grow: 1; /* 幅の自動調整で要素が均等に広がる */
   min-height: 200px; /* 最小高さの指定 */
@@ -129,7 +116,6 @@ input {
   border-radius: 9px;
   background-color:palegoldenrod;
   color:saddlebrown;
- 
 }
 
 .incompletetask  li{
