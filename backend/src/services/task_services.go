@@ -28,3 +28,13 @@ func (s MyTaskService) CreateTaskService(task models.MyTodo) (models.MyTodo, err
 
 	return addtask, nil
 }
+
+func (s MyTaskService) DetailTaskService(id int) (models.MyTodo, error) {
+	task, err := repositories.DetailTaskRepo(id, s.db)
+	if err != nil {
+		log.Println(err)
+		return models.MyTodo{}, err
+	}
+
+	return task, nil
+}

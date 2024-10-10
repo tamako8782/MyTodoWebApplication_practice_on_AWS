@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/gorilla/mux"
 	"github.com/tamako8782/MyTodoWebApplication_practice/models"
 	"github.com/tamako8782/MyTodoWebApplication_practice/services"
 )
@@ -52,6 +53,24 @@ func (c MyTaskControllers) CreateTaskHandler(w http.ResponseWriter, r *http.Requ
 	}
 
 	task, err := c.s.CreateTaskService(reqTask)
+	if err != nil {
+		http.Error(w, "internal exec", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(task)
+
+}
+
+func (c MyTaskControllers) DetailTaskHandler(w http.ResponseWriter, r *http.Request) {
+	taskId, err := strconv.Atoi(mux.Vars(r)["id"])
+	if err != nil {
+		http.Error(w, "failed get the task ", http.StatusBadRequest)
+		return
+	}
+
+	task, err := c.s.DetailTaskService(taskId)
 	if err != nil {
 		http.Error(w, "internal exec", http.StatusInternalServerError)
 		return

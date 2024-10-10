@@ -60,3 +60,36 @@ func CreateTaskRepo(db *sql.DB, task models.MyTodo) (models.MyTodo, error) {
 	return createTask, nil
 
 }
+
+func DetailTaskRepo(id int, db *sql.DB) (models.MyTodo, error) {
+	sqlStr := `
+	select * from task
+	where task_id=?;
+	`
+
+	row := db.QueryRow(sqlStr, id)
+	if err := row.Err(); err != nil {
+		log.Println(err)
+		return models.MyTodo{}, err
+	}
+
+	var task models.MyTodo
+
+	var createTime = sql.NullTime{}
+	var updateTime = sql.NullTime{}
+
+	if err := row.Scan(&task.ID, &task.Title, &task.Content, &task.State, &createTime, &updateTime); err != nil {
+		log.Println(err)
+		return models.MyTodo{}, err
+	}
+
+	if createTime.Valid {
+		task.CreatedAt = createTime.Time
+	}
+	if updateTime.Valid {
+		task.UpdatedAt = updateTime.Time
+	}
+
+	return task, nil
+
+}

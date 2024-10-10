@@ -15,11 +15,26 @@ import (
 
 var TestData = []models.MyTodo{
 	{
-		ID:    4,
+		ID:      1,
+		Title:   "first Task",
+		Content: "My first Task",
+		State:   "InComplete",
+	},
+	{
+		ID:      2,
+		Title:   "second Task",
+		Content: "My second Task",
+		State:   "Finished",
+	},
+}
+
+var TestCreateData = []models.MyTodo{
+	{
+		ID:    3,
 		Title: "test Todo@create",
 		State: "InComplete",
 	}, {
-		ID:    5,
+		ID:    4,
 		Title: "test2 Todo@create",
 		State: "Finished",
 	},

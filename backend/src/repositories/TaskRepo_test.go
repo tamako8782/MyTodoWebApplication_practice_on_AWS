@@ -4,6 +4,7 @@ import (
 	"log"
 	"testing"
 
+	"github.com/tamako8782/MyTodoWebApplication_practice/models"
 	"github.com/tamako8782/MyTodoWebApplication_practice/repositories"
 )
 
@@ -25,7 +26,7 @@ func TestListTaskRepo(t *testing.T) {
 }
 
 func TestCreateTaskRepo(t *testing.T) {
-	testTask := TestData[0]
+	testTask := TestCreateData[0]
 
 	exceptedNum := 4
 
@@ -45,5 +46,36 @@ func TestCreateTaskRepo(t *testing.T) {
 		`
 		testDB.Exec(sqlStr, exec.ID)
 	})
+
+}
+
+func TestDetailRepo(t *testing.T) {
+
+	tests := []struct {
+		testTitle string
+		excpted   models.MyTodo
+	}{
+		{
+			testTitle: "subtest1",
+			excpted:   TestData[0],
+		},
+		{
+			testTitle: "subtest2",
+			excpted:   TestData[1],
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.testTitle, func(t *testing.T) {
+			got, err := repositories.DetailTaskRepo(test.excpted.ID, testDB)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if got.ID != test.excpted.ID {
+				t.Errorf("ID:get %d but want %d\n", got.ID, test.excpted.ID)
+			}
+		})
+	}
 
 }
