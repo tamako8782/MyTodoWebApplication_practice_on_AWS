@@ -2,40 +2,42 @@ import { createContext, useEffect, useState } from 'react';
 import './App.css';
 import { CreateModal } from './compornents/CreateModal';
 import { DetailModal } from './compornents/DetailModal';
+import { EditModal } from './compornents/EditModal';  // EditModalをインポート
 
 export const TaskContext = createContext();
 
 export const App = () => {
-  //モーダル制御用
+  /////////////モーダル制御用
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);  // EditModalを表示制御するための状態
   const [selectedTask, setSelectedTask] = useState(null); // 選択されたタスクの詳細を保存
 
-  //タスクリスト制御用
+  /////////////タスクリスト制御用
   const [inCompTask, setInCompTask] = useState([]);
   const [finishTask, setFinishTask] = useState([]);
   const [notDoTask, setNotDoTask] = useState([]);
 
-  //エラー制御用
+  /////////////エラー制御用
   const [error, setError] = useState(null);
 
-  //apiパス定義用
+  /////////////apiパス定義用
   const apipath_env = process.env.REACT_APP_BACKEND_PATH;
   const listpath = apipath_env + "/task";
   const createpath = apipath_env + "/task/create";
   const detailpath = apipath_env + "/task"; // 詳細情報用のパス
+  const editpath = apipath_env + "/task"; // 編集用のパス
 
-  //モーダル参照用のコード(新規作成)
+  ///////////// モーダル参照用のコード(新規作成)
   const ShowCreateModal = () => {
     setShowCreateModal(true);
   };
 
-  // タスク詳細を取得して詳細モーダルを表示する関数
+  ///////////// タスク詳細を取得して詳細モーダルを表示する関数
   const ShowDetailModal = (id) => {
-    // モーダルを表示するが、データが取得されるまでは詳細は空のまま
-    setShowDetailModal(true);
-  
-    // APIからのデータ取得
+    setShowDetailModal(true);  // DetailModalを表示
+
+    // APIからデータを取得
     fetch(`${detailpath}/${id}`)
       .then(response => {
         if (!response.ok) {
@@ -44,16 +46,21 @@ export const App = () => {
         return response.json();
       })
       .then(data => {
-        setSelectedTask(data); // 正常に取得した場合にデータを更新
+        setSelectedTask(data);  // 正常にデータを取得し、selectedTaskに保存
       })
       .catch(error => {
         console.error("Error fetching task details:", error);
-        alert("Error: Unable to fetch task details. Please try again later."); // エラー通知
-        setShowDetailModal(false); // モーダルを閉じる
+        alert("Error: Unable to fetch task details. Please try again later.");
+        setShowDetailModal(false);  // エラー時にモーダルを閉じる
       });
   };
-  
-  //リストをAPIから取得するためのコード
+
+  ///////////// 編集モーダルを表示する関数
+  const ShowEditModal = (id) => {
+    setShowEditModal(true);  // EditModalを表示
+  };
+
+  ///////////////リストをAPIから取得するためのコード
   const fetchTaskList = () => {
     fetch(listpath)
       .then(response => {
@@ -71,7 +78,7 @@ export const App = () => {
         setNotDoTask(notDo);
       })
       .catch(error => {
-        setError(error); // エラーがあればエラーメッセージをセット
+        setError(error);
       });
   };
 
@@ -109,7 +116,7 @@ export const App = () => {
                 <li key={task.id}>
                   <p>{task.title}</p>
                   <button className="comp-button">complete</button>
-                  <button className="edit-button">edit</button>
+                  <button className="edit-button" onClick={() => ShowEditModal(task.id)}>edit</button>  {/* editボタンにイベントハンドラを追加 */}
                   <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
                 </li>
               ))}
@@ -118,13 +125,13 @@ export const App = () => {
 
           <div className='lower-task'>
             <div className='not-do-tasks'>
-              <p>not do this tasks</p>
+              <p>Not Do Tasks</p>
               <ul>
                 {notDoTask.map(task => (
                   <li key={task.id}>
                     <p>{task.title}</p>
                     <button className="dotoday-button">do today!</button>
-                    <button className="edit-button">edit</button>
+                    <button className="edit-button" onClick={() => ShowEditModal(task.id)}>edit</button>  {/* editボタンにイベントハンドラを追加 */}
                     <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
                   </li>
                 ))}
@@ -132,13 +139,13 @@ export const App = () => {
             </div>
 
             <div className='finishedtask'>
-              <p>finished task</p>
+              <p>Finished Tasks</p>
               <ul>
                 {finishTask.map(task => (
                   <li key={task.id}>
                     <p>{task.title}</p>
                     <button className="restore-button">restore</button>
-                    <button className="edit-button">edit</button>
+                    <button className="edit-button" onClick={() => ShowEditModal(task.id)}>edit</button>  {/* editボタンにイベントハンドラを追加 */}
                     <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
                   </li>
                 ))}
@@ -146,12 +153,26 @@ export const App = () => {
             </div>
           </div>
 
-          {/* DetailModal に selectedTask を渡して詳細を表示 */}
+          {/* DetailModalにeditモーダル表示の関数を渡す */}
           {selectedTask && (
             <DetailModal
               showFlag={showDetailModal}
               setShowDetailModal={setShowDetailModal}
-              task={selectedTask}  // タスクの詳細を渡す
+              task={selectedTask}
+              onEdit={() => {
+                setShowDetailModal(false); // DetailModalを閉じる
+                ShowEditModal(selectedTask.id); // EditModalを表示する
+              }}
+            />
+          )}
+
+          {/* EditModalの表示 */}
+          {selectedTask && (
+            <EditModal
+              showFlag={showEditModal}
+              setShowEditModal={setShowEditModal}
+              task={selectedTask}  // タスクの詳細をEditModalに渡す
+              onTaskUpdated={fetchTaskList}  // タスク更新後にリストを再取得
             />
           )}
         </main>
