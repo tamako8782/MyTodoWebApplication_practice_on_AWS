@@ -11,7 +11,7 @@ spec:
         command: ['sh', '-c', 'until nslookup yama-db.default.svc.cluster.local; do echo waiting for db; sleep 5; done;sleep 10'] #nslookupが成功して名前解決できた後、さらに10秒間待機
       containers:
       - name: db-migrate
-        image: tamako8782/mytodoapp:db-migrate-prodv2
+        image: tamako8782/mytodoapp:db-migrate-prodv3
         env:
         - name: MYSQL_HOST
           value: "yama-db"
