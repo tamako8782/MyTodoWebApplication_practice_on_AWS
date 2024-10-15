@@ -30,13 +30,29 @@ var TestData = []models.MyTodo{
 
 var TestCreateData = []models.MyTodo{
 	{
-		ID:    3,
-		Title: "test Todo@create",
-		State: "InComplete",
+		ID:      3,
+		Title:   "test3 Todo@create",
+		Content: "test Todo third@create",
+		State:   "InComplete",
 	}, {
-		ID:    4,
-		Title: "test2 Todo@create",
-		State: "Finished",
+		ID:      4,
+		Title:   "test4 Todo@create",
+		Content: "test Todo fourth@create",
+		State:   "Finished",
+	},
+}
+
+var TestUpdateData = []models.MyTodo{
+	{
+		ID:      5,
+		Title:   "test Todo [before] @update",
+		Content: "test Todo [before] @update",
+		State:   "NotDoTask",
+	}, {
+		ID:      5,
+		Title:   "test Todo [after] @update",
+		Content: "test Todo [after] @update",
+		State:   "InComplete",
 	},
 }
 

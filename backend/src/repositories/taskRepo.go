@@ -93,3 +93,40 @@ func DetailTaskRepo(id int, db *sql.DB) (models.MyTodo, error) {
 	return task, nil
 
 }
+
+func UpdateTaskRepo(id int, task models.MyTodo, db *sql.DB) (models.MyTodo, error) {
+	sqlStr := `
+	UPDATE task
+	SET title=?,
+	contents=?,
+	task_state=?
+	where task_id=?;
+	`
+
+	tx, err := db.Begin()
+	if err != nil {
+		return models.MyTodo{}, err
+	}
+
+	_, err = tx.Exec(
+		sqlStr,
+		task.Title,
+		task.Content,
+		task.State,
+		id)
+
+	if err != nil {
+		log.Println(err)
+		tx.Rollback()
+	}
+
+	tx.Commit()
+
+	resultData, err := DetailTaskRepo(id, db)
+	if err != nil {
+		return models.MyTodo{}, err
+	}
+
+	return resultData, nil
+
+}

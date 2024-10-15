@@ -23,7 +23,7 @@ export const EditModal = (props) => {
   const handleUpdateTask = () => {
     const updatepath = `${props.detailpath}/${task.task_id}`;
 
-    fetch(updatepath, {
+    fetch(updatepath + "/update", {
       method: "PATCH", // PATCHメソッドを使用して部分更新
       headers: {
         "Content-Type": "application/json",

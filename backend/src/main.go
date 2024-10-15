@@ -25,6 +25,7 @@ func main() {
 	r.HandleFunc("/task", c.ListTaskHandler).Methods(http.MethodGet)
 	r.HandleFunc("/task/create", c.CreateTaskHandler).Methods(http.MethodPost)
 	r.HandleFunc("/task/{id:[0-9]+}", c.DetailTaskHandler).Methods(http.MethodGet)
+	r.HandleFunc("/task/{id:[0-9]+}/update", c.UpdateTaskHandler).Methods(http.MethodPatch)
 
 	co := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"}, // ReactアプリのURL

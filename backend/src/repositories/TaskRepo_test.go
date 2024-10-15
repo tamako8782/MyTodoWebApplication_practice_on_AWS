@@ -79,3 +79,36 @@ func TestDetailRepo(t *testing.T) {
 	}
 
 }
+
+func TestUpdateRepo(t *testing.T) {
+
+	testBfTask := TestUpdateData[0]
+	testAfTask := TestUpdateData[1]
+
+	_, err := repositories.CreateTaskRepo(testDB, testBfTask)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	testAf, err := repositories.UpdateTaskRepo(testBfTask.ID, testAfTask, testDB)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if testAf.ID != testAfTask.ID {
+		t.Errorf("new task id is expected %d but got %d", testAfTask.ID, testAf.ID)
+	}
+
+	if testAf.Title != testAfTask.Title {
+		t.Errorf("new task title is expected %s but got %s", testAfTask.Title, testAf.Title)
+	}
+
+	t.Cleanup(func() {
+		const sqlStr = `
+		delete from task
+		where task_id=?;
+		`
+		testDB.Exec(sqlStr, testAf.ID)
+	})
+
+}

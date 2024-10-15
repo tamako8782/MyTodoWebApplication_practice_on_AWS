@@ -80,3 +80,25 @@ func (c MyTaskControllers) DetailTaskHandler(w http.ResponseWriter, r *http.Requ
 	json.NewEncoder(w).Encode(task)
 
 }
+
+func (c MyTaskControllers) UpdateTaskHandler(w http.ResponseWriter, r *http.Request) {
+	taskId, err := strconv.Atoi(mux.Vars(r)["id"])
+	if err != nil {
+		http.Error(w, "failed get the task ", http.StatusBadRequest)
+		return
+	}
+
+	var reqTask models.MyTodo
+	if err := json.NewDecoder(r.Body).Decode(&reqTask); err != nil {
+		http.Error(w, "Decode failed", http.StatusBadRequest)
+		return
+	}
+
+	task, err := c.s.UpdateTaskService(taskId, reqTask)
+	if err != nil {
+		http.Error(w, "internal exec", http.StatusInternalServerError)
+		return
+	}
+
+	json.NewEncoder(w).Encode(task)
+}
