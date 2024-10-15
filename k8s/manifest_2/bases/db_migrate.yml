@@ -26,3 +26,4 @@ spec:
       restartPolicy: OnFailure
       imagePullSecrets:
       - name: yamasec
+
