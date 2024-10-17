@@ -130,3 +130,27 @@ func UpdateTaskRepo(id int, task models.MyTodo, db *sql.DB) (models.MyTodo, erro
 	return resultData, nil
 
 }
+
+func DeleteTaskRepo(id int, db *sql.DB) (bool, error) {
+	sqlStr := `
+		delete from task
+		where task_id = ?; 
+	`
+
+	result, err := db.Exec(sqlStr, id)
+	if err != nil {
+		log.Println(err)
+		return false, err
+	}
+
+	delResult, err := result.RowsAffected()
+	if err != nil {
+		log.Println(err)
+		return false, err
+	} else if delResult >= 0 {
+		return true, nil
+	} else {
+		return false, err
+	}
+
+}

@@ -103,3 +103,22 @@ func (c MyTaskControllers) UpdateTaskHandler(w http.ResponseWriter, r *http.Requ
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(task)
 }
+
+func (c MyTaskControllers) DeleteTaskHandler(w http.ResponseWriter, r *http.Request) {
+
+	taskId, err := strconv.Atoi(mux.Vars(r)["id"])
+	if err != nil {
+		http.Error(w, "failed get the task", http.StatusBadRequest)
+		return
+	}
+
+	delResult, err := c.s.DeleteTaskService(taskId)
+	if err != nil {
+		http.Error(w, "internal exec", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(delResult)
+
+}

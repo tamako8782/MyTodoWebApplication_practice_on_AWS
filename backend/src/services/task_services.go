@@ -46,3 +46,13 @@ func (s MyTaskService) UpdateTaskService(id int, task models.MyTodo) (models.MyT
 
 	return upTask, nil
 }
+
+func (s MyTaskService) DeleteTaskService(id int) (bool, error) {
+	dlTask, err := repositories.DeleteTaskRepo(id, s.db)
+	if err != nil {
+		return false, err
+	}
+
+	return dlTask, nil
+
+}

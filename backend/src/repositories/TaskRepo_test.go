@@ -112,3 +112,22 @@ func TestUpdateRepo(t *testing.T) {
 	})
 
 }
+
+func TestDeleteRepo(t *testing.T) {
+
+	testTask := TestDeleteData[0]
+
+	_, err := repositories.CreateTaskRepo(testDB, testTask)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	testDel, err := repositories.DeleteTaskRepo(testTask.ID, testDB)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !testDel {
+		t.Fatal("delete failed")
+	}
+}

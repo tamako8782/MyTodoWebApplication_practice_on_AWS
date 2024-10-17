@@ -56,6 +56,15 @@ var TestUpdateData = []models.MyTodo{
 	},
 }
 
+var TestDeleteData = []models.MyTodo{
+	{
+		ID:      6,
+		Title:   "test Todo 6 @delete",
+		Content: "test Todo 6 @delete",
+		State:   "NotDoTask",
+	},
+}
+
 var testDB *sql.DB
 var (
 	dbUser      = os.Getenv("MYSQL_USER")
