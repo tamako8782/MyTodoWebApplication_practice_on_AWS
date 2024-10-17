@@ -26,7 +26,7 @@ export const App = () => {
   const listpath = apipath_env + "/task";
   const createpath = apipath_env + "/task/create";
   const detailpath = apipath_env + "/task"; // 詳細情報用のパス
-  const editpath = apipath_env + "/task"; // 編集用のパス
+  
 
   ///////////// モーダル参照用のコード(新規作成)
   const ShowCreateModal = () => {
@@ -116,7 +116,7 @@ export const App = () => {
                 <li key={task.id}>
                   <p>{task.title}</p>
                   <button className="comp-button">complete</button>
-                  <button className="edit-button" onClick={() => ShowEditModal(task.id)}>edit</button>  {/* editボタンにイベントハンドラを追加 */}
+                  
                   <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
                 </li>
               ))}
@@ -131,7 +131,7 @@ export const App = () => {
                   <li key={task.id}>
                     <p>{task.title}</p>
                     <button className="dotoday-button">do today!</button>
-                    <button className="edit-button" onClick={() => ShowEditModal(task.id)}>edit</button>  {/* editボタンにイベントハンドラを追加 */}
+                    
                     <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
                   </li>
                 ))}
@@ -145,7 +145,7 @@ export const App = () => {
                   <li key={task.id}>
                     <p>{task.title}</p>
                     <button className="restore-button">restore</button>
-                    <button className="edit-button" onClick={() => ShowEditModal(task.id)}>edit</button>  {/* editボタンにイベントハンドラを追加 */}
+                    
                     <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
                   </li>
                 ))}
@@ -171,6 +171,7 @@ export const App = () => {
             <EditModal
               showFlag={showEditModal}
               setShowEditModal={setShowEditModal}
+              detailpath={detailpath}
               task={selectedTask}  // タスクの詳細をEditModalに渡す
               onTaskUpdated={fetchTaskList}  // タスク更新後にリストを再取得
             />

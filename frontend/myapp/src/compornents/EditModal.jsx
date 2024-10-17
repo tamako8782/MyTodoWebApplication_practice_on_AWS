@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import classes from "./Modalstyle.module.scss";
 
 export const EditModal = (props) => {
-  const { task, onTaskUpdated } = props; // タスクデータと更新後の処理
+  const { task, onTaskUpdated,detailpath } = props; // タスクデータと更新後の処理
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [state, setState] = useState("");
@@ -12,7 +12,7 @@ export const EditModal = (props) => {
     if (task) {
       setTitle(task.title);
       setContent(task.content); // task.content に修正
-      setState(task.task_state);
+      setState(task.state);
     }
   }, [task]);
 
@@ -21,17 +21,18 @@ export const EditModal = (props) => {
   };
 
   const handleUpdateTask = () => {
-    const updatepath = `${props.detailpath}/${task.task_id}`;
+    const updatepath = `${detailpath}/${task.id}/update`;
+    console.log(updatepath);
 
-    fetch(updatepath + "/update", {
+    fetch(updatepath, {
       method: "PATCH", // PATCHメソッドを使用して部分更新
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         title,
-        content, // 正しい content の値を送信
-        task_state: state,
+        content,
+        state,
       }),
     })
       .then((response) => {
