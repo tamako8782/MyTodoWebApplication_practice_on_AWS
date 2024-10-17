@@ -65,6 +65,30 @@ var TestDeleteData = []models.MyTodo{
 	},
 }
 
+var TestChangeData = []models.MyTodo{
+	{
+		ID:      7,
+		Title:   "test Todo [before] @change",
+		Content: "test Todo [before] @change",
+		State:   "NotDoTask",
+	}, {
+		ID:      7,
+		Title:   "test Todo [to InComplete] @change",
+		Content: "test Todo [to InComplete] @change",
+		State:   "InComplete",
+	}, {
+		ID:      7,
+		Title:   "test Todo [to Finished] @change",
+		Content: "test Todo [to Finished] @change",
+		State:   "Finished",
+	}, {
+		ID:      7,
+		Title:   "test Todo [to NotDoTask] @change",
+		Content: "test Todo [to NotDoTask] @change",
+		State:   "NotDoTask",
+	},
+}
+
 var testDB *sql.DB
 var (
 	dbUser      = os.Getenv("MYSQL_USER")

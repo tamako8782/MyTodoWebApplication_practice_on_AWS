@@ -131,3 +131,39 @@ func TestDeleteRepo(t *testing.T) {
 		t.Fatal("delete failed")
 	}
 }
+
+func TestChangeRepo(t *testing.T) {
+
+	testBfTask := TestChangeData[0]
+	testInCompTask := TestChangeData[1]
+	//testFinTask := TestChangeData[2]
+	testNotDoTask := TestChangeData[3]
+
+	bf, err := repositories.CreateTaskRepo(testDB, testBfTask)
+	if err != nil {
+		t.Fatal(err)
+	}
+	//作成済みテストタスクのID確認
+	if bf.ID != testBfTask.ID {
+		t.Errorf("new task id is expected %d but got %d", testBfTask.ID, bf.ID)
+	}
+	//タスクの状態をincompに変更
+	testInComp, err := repositories.ChangeTaskRepo(testBfTask.ID, testInCompTask, testDB)
+	if err != nil {
+		t.Fatal(err)
+	}
+	//incompになってるよね?を確認
+	if testInComp.State != testInCompTask.State {
+		t.Errorf("new task state is expected %s but got %s", testInCompTask.State, testInComp.State)
+	}
+	//続きはここから
+
+	t.Cleanup(func() {
+		const sqlStr = `
+		delete from task
+		where task_id=?;
+		`
+		testDB.Exec(sqlStr, testNotDoTask.ID)
+	})
+
+}

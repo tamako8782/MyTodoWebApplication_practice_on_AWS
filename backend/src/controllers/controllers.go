@@ -122,3 +122,28 @@ func (c MyTaskControllers) DeleteTaskHandler(w http.ResponseWriter, r *http.Requ
 	json.NewEncoder(w).Encode(delResult)
 
 }
+
+func (c MyTaskControllers) ChangeTaskHandler(w http.ResponseWriter, r *http.Request) {
+	taskId, err := strconv.Atoi(mux.Vars(r)["id"])
+	if err != nil {
+		http.Error(w, "failed get the task ", http.StatusBadRequest)
+		return
+	}
+
+	var reqTask models.MyTodo
+	if err := json.NewDecoder(r.Body).Decode(&reqTask); err != nil {
+		http.Error(w, "Decode failed", http.StatusBadRequest)
+		return
+	}
+
+	/*以下は修正が必要
+	task, err := c.s.UpdateTaskService(taskId, reqTask)
+	if err != nil {
+		http.Error(w, "internal exec", http.StatusInternalServerError)
+		return
+	}
+	*/
+	//以下仮で入れてる
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(taskId)
+}

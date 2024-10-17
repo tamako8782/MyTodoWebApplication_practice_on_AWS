@@ -154,3 +154,36 @@ func DeleteTaskRepo(id int, db *sql.DB) (bool, error) {
 	}
 
 }
+
+func ChangeTaskRepo(id int, task models.MyTodo, db *sql.DB) (models.MyTodo, error) {
+	sqlStr := `
+	UPDATE task
+	SET task_state=?
+	where task_id=?;
+	`
+
+	tx, err := db.Begin()
+	if err != nil {
+		return models.MyTodo{}, err
+	}
+
+	_, err = tx.Exec(
+		sqlStr,
+		task.State,
+		id)
+
+	if err != nil {
+		log.Println(err)
+		tx.Rollback()
+	}
+
+	tx.Commit()
+
+	resultData, err := DetailTaskRepo(id, db)
+	if err != nil {
+		return models.MyTodo{}, err
+	}
+
+	return resultData, nil
+
+}
