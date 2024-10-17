@@ -2,7 +2,9 @@ import { createContext, useEffect, useState } from 'react';
 import './App.css';
 import { CreateModal } from './compornents/CreateModal';
 import { DetailModal } from './compornents/DetailModal';
-import { EditModal } from './compornents/EditModal';  // EditModalをインポート
+import { EditModal } from './compornents/EditModal';  
+import { DeleteModal } from './compornents/DeleteModal';  
+
 
 export const TaskContext = createContext();
 
@@ -11,6 +13,7 @@ export const App = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);  // EditModalを表示制御するための状態
+  const [showDeleteModal, setShowDeleteModal] = useState(false);  // EditModalを表示制御するための状態
   const [selectedTask, setSelectedTask] = useState(null); // 選択されたタスクの詳細を保存
 
   /////////////タスクリスト制御用
@@ -59,6 +62,12 @@ export const App = () => {
   const ShowEditModal = (id) => {
     setShowEditModal(true);  // EditModalを表示
   };
+
+  ///////////// 削除モーダルを表示する関数
+  const ShowDeleteModal = (id) => {
+    setShowDeleteModal(true);  
+  };
+
 
   ///////////////リストをAPIから取得するためのコード
   const fetchTaskList = () => {
@@ -156,6 +165,7 @@ export const App = () => {
           {/* DetailModalにeditモーダル表示の関数を渡す */}
           {selectedTask && (
             <DetailModal
+              setShowDeleteModal={setShowDeleteModal} // ここで削除用モーダルを表示する
               showFlag={showDetailModal}
               setShowDetailModal={setShowDetailModal}
               task={selectedTask}
@@ -163,6 +173,21 @@ export const App = () => {
                 setShowDetailModal(false); // DetailModalを閉じる
                 ShowEditModal(selectedTask.id); // EditModalを表示する
               }}
+              onDelete={() => {
+                setShowDetailModal(false); // DetailModalを閉じる
+                setShowDeleteModal(true);  // 削除モーダルを表示
+              }}
+            />
+          )}
+          {/* DeleteModalの表示 */}
+          {selectedTask && (
+            <DeleteModal
+              setShowDetailModal={setShowDetailModal}
+              showFlag={showDeleteModal}
+              setShowDeleteModal={setShowDeleteModal}
+              detailpath={detailpath}
+              task={selectedTask}  // タスクの詳細をEditModalに渡す
+              onTaskDeleted={fetchTaskList}  // タスク更新後にリストを再取得
             />
           )}
 

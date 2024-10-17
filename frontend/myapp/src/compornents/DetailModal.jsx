@@ -6,6 +6,7 @@ export const DetailModal = (props) => {
     props.setShowDetailModal(false);
   };
 
+
   return (
     <>
       {props.showFlag ? (
@@ -27,7 +28,7 @@ export const DetailModal = (props) => {
               </ul>
             </div>
             <button onClick={closeDetailModal}>close</button>
-            <button onClick={closeDetailModal}>delete</button>
+            <button onClick={props.onDelete}>delete</button> {/* 削除確認モーダルを表示 */}
             <button onClick={props.onEdit}>edit</button>  {/* editボタンでonEditを呼び出す */}
           </div>
         </div>
