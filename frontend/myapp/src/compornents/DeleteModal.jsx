@@ -52,8 +52,8 @@ export const DeleteModal = (props) => {
   return (
     <>
       {props.showFlag ? (
-              <div className={classes.overlay}>
-              <div className={classes.modalcontent}>
+              <div className={classes.deleteOverlay}>
+              <div className={classes.deleteModalContent}>
                 <h2>Confirm Delete</h2>
                 <p>Are you sure you want to delete the task "{props.task.title}"?</p>
                 <div className={classes.buttonGroup}>

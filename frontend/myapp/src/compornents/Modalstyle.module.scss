@@ -19,7 +19,7 @@
   border-radius: 8px; /* モーダルの角を丸くする */
   width: 40%;
   max-width: 600px; /* 最大横幅を調整 */
-  max-height: 90vh; /* 画面高さの90%以内に収める */
+  max-height: 100%; 
   overflow-y: auto; /* コンテンツが大きい場合スクロール可能に */
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3); /* 影を強調 */
 }
@@ -46,12 +46,6 @@
   margin-bottom: 20px; /* 下部にスペースを追加 */
 }
 
-.buttonGroup {
-  display: flex;
-  justify-content: space-between; /* ボタンを左右に配置 */
-  gap: 20px;
-  margin-top: 20px;
-}
 
 .yesButton {
   background-color: #d9534f; /* Yesボタンを赤色にして目立たせる */
@@ -132,7 +126,9 @@
   background-color: #ec971f; /* Hover時に色を少し濃く */
 }
 
-//削除モーダル用↓
+
+
+/* Deleteモーダル専用のスタイル */
 .deleteOverlay {
   position: fixed;
   top: 0;
@@ -148,8 +144,50 @@
 
 .deleteModalContent {
   background: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  width: 30%;
+  padding: 10px;
+  border-radius: 8px;
+  width: 90%; /* 横幅を90%にしてレスポンシブ対応 */
+  max-width: 400px; /* 最大横幅を400pxに制限 */
   text-align: center;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3); /* 影を強調 */
+}
+
+.deleteMessage {
+  font-size: 18px;
+  font-weight: bold;
+  color: #d9534f; /* 警告色を追加 */
+  margin-bottom: 20px; /* 下部にスペースを追加 */
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-evenly; /* ボタン間のスペースを均等にする */
+  gap: 10px;
+  margin-top: 20px;
+  
+  width: 100%; /* ボタンを含む親要素を100%幅に */
+}
+
+.yesButton, .noButton {
+  width: 100px; /* ボタンの幅を固定 */
+  padding: 10px 20px; /* ボタン内の余白 */
+  background-color: #d9534f; /* Yesボタンの背景色 */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  height: 40px !important;
+  cursor: pointer;
+}
+
+.noButton {
+  background-color: #5bc0de; /* Noボタンの背景色 */
+}
+
+.yesButton:hover {
+  background-color: #c9302c; /* Hover時のYesボタンの色 */
+}
+
+.noButton:hover {
+  background-color: #31b0d5; /* Hover時のNoボタンの色 */
 }
