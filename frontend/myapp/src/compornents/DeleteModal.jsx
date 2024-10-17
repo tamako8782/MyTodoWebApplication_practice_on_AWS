@@ -38,6 +38,7 @@ export const DeleteModal = (props) => {
 
           onTaskDeleted(); // 削除後、タスクリストを更新
           closeDetailModal(); // Detailモーダルを閉じる
+          closeDeleteModal();
         } else {
           console.error("Task deletion failed.");
           alert("Failed to delete task.");
