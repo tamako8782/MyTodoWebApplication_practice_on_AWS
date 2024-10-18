@@ -56,3 +56,12 @@ func (s MyTaskService) DeleteTaskService(id int) (bool, error) {
 	return dlTask, nil
 
 }
+
+func (s MyTaskService) ChangeTaskService(id int, taskState string) (models.MyTodo, error) {
+	chTask, err := repositories.ChangeTaskRepo(id, taskState, s.db)
+	if err != nil {
+		return models.MyTodo{}, err
+	}
+
+	return chTask, err
+}

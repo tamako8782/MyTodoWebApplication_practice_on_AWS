@@ -136,14 +136,12 @@ func (c MyTaskControllers) ChangeTaskHandler(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	/*以下は修正が必要
-	task, err := c.s.UpdateTaskService(taskId, reqTask)
+	chTask, err := c.s.ChangeTaskService(taskId, reqTask.State)
 	if err != nil {
 		http.Error(w, "internal exec", http.StatusInternalServerError)
 		return
 	}
-	*/
-	//以下仮で入れてる
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(taskId)
+	json.NewEncoder(w).Encode(chTask)
 }

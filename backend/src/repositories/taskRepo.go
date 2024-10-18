@@ -155,7 +155,7 @@ func DeleteTaskRepo(id int, db *sql.DB) (bool, error) {
 
 }
 
-func ChangeTaskRepo(id int, task models.MyTodo, db *sql.DB) (models.MyTodo, error) {
+func ChangeTaskRepo(id int, taskState string, db *sql.DB) (models.MyTodo, error) {
 	sqlStr := `
 	UPDATE task
 	SET task_state=?
@@ -169,7 +169,7 @@ func ChangeTaskRepo(id int, task models.MyTodo, db *sql.DB) (models.MyTodo, erro
 
 	_, err = tx.Exec(
 		sqlStr,
-		task.State,
+		taskState,
 		id)
 
 	if err != nil {

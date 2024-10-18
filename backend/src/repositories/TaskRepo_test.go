@@ -136,7 +136,7 @@ func TestChangeRepo(t *testing.T) {
 
 	testBfTask := TestChangeData[0]
 	testInCompTask := TestChangeData[1]
-	//testFinTask := TestChangeData[2]
+	testFinTask := TestChangeData[2]
 	testNotDoTask := TestChangeData[3]
 
 	bf, err := repositories.CreateTaskRepo(testDB, testBfTask)
@@ -148,7 +148,7 @@ func TestChangeRepo(t *testing.T) {
 		t.Errorf("new task id is expected %d but got %d", testBfTask.ID, bf.ID)
 	}
 	//タスクの状態をincompに変更
-	testInComp, err := repositories.ChangeTaskRepo(testBfTask.ID, testInCompTask, testDB)
+	testInComp, err := repositories.ChangeTaskRepo(testBfTask.ID, testInCompTask.State, testDB)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -156,7 +156,25 @@ func TestChangeRepo(t *testing.T) {
 	if testInComp.State != testInCompTask.State {
 		t.Errorf("new task state is expected %s but got %s", testInCompTask.State, testInComp.State)
 	}
-	//続きはここから
+	//タスクの状態をfinishedに変更
+	testFinised, err := repositories.ChangeTaskRepo(testBfTask.ID, testFinTask.State, testDB)
+	if err != nil {
+		t.Fatal(err)
+	}
+	//finishedになってるよね?を確認
+	if testFinised.State != testFinTask.State {
+		t.Errorf("new task state is expected %s but got %s", testFinTask.State, testFinised.State)
+	}
+
+	//タスクの状態をNotDoに変更
+	testNotDo, err := repositories.ChangeTaskRepo(testBfTask.ID, testNotDoTask.State, testDB)
+	if err != nil {
+		t.Fatal(err)
+	}
+	//NotDoになってるよね?を確認
+	if testNotDo.State != testNotDoTask.State {
+		t.Errorf("new task state is expected %s but got %s", testNotDoTask.State, testNotDo.State)
+	}
 
 	t.Cleanup(func() {
 		const sqlStr = `
