@@ -95,21 +95,27 @@
   color: #fff;
 }
 
-.closebutton {
-  background-color: #00AA00	!important;
-  color: #fff;
-}
 
 .deletebutton  {
   background-color: #444444	 !important;
   color: #fff;
 }
 
-.editbutton {
-  background-color: #00BB00	 !important;
+.deletebutton:hover {
+  background-color: #202020	 !important;
   color: #fff;
 }
 
+
+.editbutton {
+  background-color: #00c600	 !important;
+  color: #fff;
+}
+
+.editbutton:hover {
+  background-color: #008100	 !important;
+  color: #fff;
+}
 
 
 
