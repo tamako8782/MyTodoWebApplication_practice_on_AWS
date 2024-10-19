@@ -199,7 +199,7 @@ export const App = () => {
                   <li key={task.id}>
                     <p className='task-title-text'>{task.title}</p>
                     <div className='button-group-main'>
-                      <button onClick={() => handleChangeTask(task.id,"InComplete")}  className="restore-button-today">restore(Today)</button>
+                      <button onClick={() => handleChangeTask(task.id,"InComplete")}  className="restore-button-today"  disabled={taskCount >= maxTasks}>restore(Today)</button>
                       <button onClick={() => handleChangeTask(task.id,"NotDoTask")}  className="restore-button-nottoday">restore(notToday)</button>                    
                       <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
                     </div>

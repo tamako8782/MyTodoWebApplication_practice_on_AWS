@@ -207,7 +207,7 @@ input {
 }
 
 .dotoday-button:disabled {
-  background-color: #ccc; /* 無効時の背景色 */
+  background-color: #ccc !important; /* 無効時の背景色 */
   color: #666; /* 無効時の文字色 */
   cursor: not-allowed; /* カーソルを変更 */
 }
@@ -220,6 +220,12 @@ input {
   background-color: #FF4F02	!important;
   color: #fff;
 }
+.restore-button-today:disabled {
+  background-color: #ccc !important; /* 無効時の背景色 */
+  color: #666; /* 無効時の文字色 */
+  cursor: not-allowed; /* カーソルを変更 */
+}
+
 
 .restore-button-nottoday {
   background-color: #00AA00	!important;
