@@ -91,7 +91,39 @@ export const App = () => {
       });
   };
 
-  // 初回ロード時にタスクリストを取得
+  /////////////// changeapiとやり取りするための
+  const handleChangeTask = (id,newState) => {
+    
+    const changepath = `${detailpath}/${id}/change`;
+
+    fetch(changepath, {
+      method: "PATCH", // PATCHメソッドを使用して部分更新
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        state:newState,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Task update failed.");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Task changed successfully", data);
+
+        fetchTaskList();
+      })
+      .catch((error) => {
+        console.error("Error changing task:", error);
+        alert("Failed to changing task.");
+      });
+  };
+
+
+  /////////////// 初回ロード時にタスクリストを取得
   useEffect(() => {
     fetchTaskList();
   }, []);
@@ -124,7 +156,7 @@ export const App = () => {
               {inCompTask.map(task => (
                 <li key={task.id}>
                   <p>{task.title}</p>
-                  <button className="comp-button">complete</button>
+                  <button onClick={() => handleChangeTask(task.id,"Finished")} className="comp-button">complete</button>
                   
                   <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
                 </li>
@@ -139,7 +171,7 @@ export const App = () => {
                 {notDoTask.map(task => (
                   <li key={task.id}>
                     <p>{task.title}</p>
-                    <button className="dotoday-button">do today!</button>
+                    <button onClick={() => handleChangeTask(task.id,"InComplete")} className="dotoday-button">do today!</button>
                     
                     <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
                   </li>
@@ -153,8 +185,8 @@ export const App = () => {
                 {finishTask.map(task => (
                   <li key={task.id}>
                     <p>{task.title}</p>
-                    <button className="restore-button">restore</button>
-                    
+                    <button onClick={() => handleChangeTask(task.id,"InComplete")}  className="restore-button">restore(Today)</button>
+                    <button onClick={() => handleChangeTask(task.id,"NotDoTask")}  className="restore-button">restore(notToday)</button>                    
                     <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
                   </li>
                 ))}
