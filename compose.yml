@@ -7,7 +7,6 @@ services:
       dockerfile: Dockerfile
       target: ${environment}
     container_name: react-app
-    image: tamako8782/react-prod:v1
     volumes:
       - ./frontend/myapp:/app
       - /app/node_modules
@@ -22,7 +21,6 @@ services:
       dockerfile: Dockerfile
       target: ${environment}
     container_name: go-app
-
     volumes:
     - ./backend/:/app/
     ports:
@@ -52,7 +50,7 @@ services:
   db-migrate:
     build:
       context: ./backend/dbvol/migrate
-      target: ${environment}
+#      target: ${environment}
     depends_on:
         - db
     command: ["up"]

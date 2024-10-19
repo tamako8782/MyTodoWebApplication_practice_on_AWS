@@ -31,13 +31,25 @@ spec:
         - containerPort: 8080
         env:
         - name: MYSQL_DATABASE
-          value: "yamamysql"
+          valueFrom:
+            secretKeyRef:
+              name: yama-secret
+              key: MYSQL_DATABASE
         - name: MYSQL_HOST
-          value: "yama-db"
+          valueFrom:
+            secretKeyRef:
+              name: yama-secret
+              key: MYSQL_HOST
         - name: MYSQL_USER
-          value: "app"
+          valueFrom:
+            secretKeyRef:
+              name: yama-secret
+              key: MYSQL_USER
         - name: MYSQL_PASSWORD
-          value: "admin1234!" 
+          valueFrom:
+            secretKeyRef:
+              name: yama-secret
+              key: MYSQL_PASSWORD
         - name: MYSQL_PORT
           value: "3306"
       imagePullSecrets:

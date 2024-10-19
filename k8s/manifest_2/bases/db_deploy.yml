@@ -32,13 +32,30 @@ spec:
           periodSeconds: 5
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: "admin1234!"  # 環境変数の設定
+          valueFrom:
+            secretKeyRef:
+              name: yama-secret
+              key: MYSQL_ROOT_PASSWORD
         - name: MYSQL_USER
-          value: "app"
+          valueFrom:
+            secretKeyRef:
+              name: yama-secret
+              key: MYSQL_USER
         - name: MYSQL_PASSWORD
-          value: "admin1234!"
+          valueFrom:
+            secretKeyRef:
+              name: yama-secret
+              key: MYSQL_PASSWORD
         - name: MYSQL_DATABASE
-          value: "yamamysql"
+          valueFrom:
+            secretKeyRef:
+              name: yama-secret
+              key: MYSQL_DATABASE
+        - name: MYSQL_HOST
+          valueFrom:
+            secretKeyRef:
+              name: yama-secret
+              key: MYSQL_HOST
         - name: TZ
           value: "Asia/Tokyo"  # タイムゾーンの設定
 

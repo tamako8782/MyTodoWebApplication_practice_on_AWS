@@ -44,3 +44,4 @@ EXPOSE 80
 
 # Nginx をフォアグラウンドで実行
 CMD ["nginx", "-g", "daemon off;"]
+
