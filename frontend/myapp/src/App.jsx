@@ -24,6 +24,11 @@ export const App = () => {
   /////////////エラー制御用
   const [error, setError] = useState(null);
 
+  /////////////6タスク数制御用
+  const maxTasks = 5;
+  const taskCount = inCompTask.length; // inCompTaskはタスクリストの配列
+
+
   /////////////apiパス定義用
   const apipath_env = process.env.REACT_APP_BACKEND_PATH;
   const listpath = apipath_env + "/task";
@@ -147,11 +152,16 @@ export const App = () => {
               showFlag={showCreateModal}
               setShowCreateModal={setShowCreateModal}
               onTaskCreated={fetchTaskList}  // タスク作成後にタスクリストを更新
+              taskCount={taskCount} maxTasks={maxTasks}
             />
           </div>
 
           <div className='incompletetask'>
-            <p className='task-title'>Today's 6 Tasks</p>
+            <div className='task-title-group'>
+              <p className='task-title'>Today's 6 Tasks</p>
+              {taskCount > maxTasks && (<p className='task-warning'> Oops, you can only add up to 6 tasks!</p>
+            )}
+            </div>
             <ul>
               {inCompTask.map(task => (
                 <li key={task.id}>
@@ -173,7 +183,7 @@ export const App = () => {
                   <li key={task.id}>
                     <p className='task-title-text'>{task.title}</p>
                     <div className='button-group-main'>
-                      <button onClick={() => handleChangeTask(task.id,"InComplete")} className="dotoday-button">do today!</button>
+                      <button onClick={() => handleChangeTask(task.id,"InComplete")} className="dotoday-button"  disabled={taskCount >= maxTasks} >do today!</button>
                     
                     <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
                     </div>
@@ -236,6 +246,7 @@ export const App = () => {
               detailpath={detailpath}
               task={selectedTask}  // タスクの詳細をEditModalに渡す
               onTaskUpdated={fetchTaskList}  // タスク更新後にリストを再取得
+              taskCount={taskCount} maxTasks={maxTasks}
             />
           )}
         </main>

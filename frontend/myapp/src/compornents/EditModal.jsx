@@ -87,7 +87,7 @@ export const EditModal = (props) => {
                 value={state}
                 onChange={(e) => setState(e.target.value)}
               >
-                <option value="InComplete">Today Task</option>
+                <option value="InComplete" disabled={props.taskCount >= props.maxTasks}>Today Task</option>
                 <option value="NotDoTask">Not Do Task</option>
               </select>
               <br />

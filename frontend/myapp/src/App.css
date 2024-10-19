@@ -130,6 +130,13 @@ input {
 
 }
 
+.task-warning{
+  color:#fff;
+  background-color: red;
+  display: inline-block;
+  font-size: 25px;
+
+}
 
 /*今日やらないタスク*/
 .not-do-tasks{
@@ -197,6 +204,12 @@ input {
 .dotoday-button:hover {
   background-color: #004400	!important;
   color: #fff;
+}
+
+.dotoday-button:disabled {
+  background-color: #ccc; /* 無効時の背景色 */
+  color: #666; /* 無効時の文字色 */
+  cursor: not-allowed; /* カーソルを変更 */
 }
 
 .restore-button-today {
