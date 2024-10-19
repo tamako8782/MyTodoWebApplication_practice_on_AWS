@@ -28,7 +28,10 @@ main {
 li {
   list-style-type: none;
   justify-content: space-between;
-  width:90% ;
+  display: block;
+  width:80% ;
+  min-width: 200px; /* 横幅の下限を設定 */
+
   align-items: center; /* タスク名とボタンの縦方向を揃える */
 }
 
@@ -42,8 +45,12 @@ main li {
 
 button {
   border-radius: 3px;
-  border:1px solid  #2f5167;
-  height: 20px;
+  border: 1px solid #2f5167;
+  height: auto;
+  font-weight: bold;  
+  color:#222222	 ;
+  padding: 3px;
+  margin: 2px;
 
 }
 
@@ -138,7 +145,7 @@ input {
 }
 
 .not-do-tasks  li{
-  background-color:rgb(3, 181, 3)
+  background-color:#00DD00	;
 
 }
 
@@ -159,6 +166,65 @@ input {
   background-color: gray;
 }
 
+.button-group-main{
+  display: flex;
+  padding: 2px;
+}
+
+.comp-button {
+  background-color:#ff8c00 !important;
+  
+}
+
+.comp-button:hover {
+  background-color: #FF4F02 !important;
+  color: #fff;
+}
+
+.detail-button {
+  background-color: #C0C0C0 !important;
+  
+}
+.detail-button:hover {
+  background-color: #808080 !important;
+  color: #fff;
+}
+
+.dotoday-button {
+  background-color: #00AA00	!important;
+}
+
+.dotoday-button:hover {
+  background-color: #004400	!important;
+  color: #fff;
+}
+
+.restore-button-today {
+  background-color: #ff8c00	!important;
+}
+
+.restore-button-today:hover {
+  background-color: #FF4F02	!important;
+  color: #fff;
+}
+
+.restore-button-nottoday {
+  background-color: #00AA00	!important;
+}
+
+.restore-button-nottoday:hover {
+  background-color: #004400	!important;
+  color: #fff;
+}
+
+.task-title{
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.task-title-text{
+  font-size: 25px;
+}
 
 /*フッター一応作ったがいつ実装すんだ*/
 footer {

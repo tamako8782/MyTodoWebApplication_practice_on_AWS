@@ -140,7 +140,7 @@ export const App = () => {
 
         <main>
           <div className='createtask'>
-            <button onClick={ShowCreateModal}>Create your task</button>
+            <button onClick={ShowCreateModal}>Create task!</button>
 
             {/* CreateModalにonTaskCreatedを渡す */}
             <CreateModal
@@ -151,14 +151,15 @@ export const App = () => {
           </div>
 
           <div className='incompletetask'>
-            <p>Today's 6 Tasks</p>
+            <p className='task-title'>Today's 6 Tasks</p>
             <ul>
               {inCompTask.map(task => (
                 <li key={task.id}>
-                  <p>{task.title}</p>
-                  <button onClick={() => handleChangeTask(task.id,"Finished")} className="comp-button">complete</button>
-                  
-                  <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
+                  <p className='task-title-text'>{task.title}</p>
+                  <div className='button-group-main'>
+                    <button onClick={() => handleChangeTask(task.id,"Finished")} className="comp-button">complete!</button>
+                    <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -166,28 +167,32 @@ export const App = () => {
 
           <div className='lower-task'>
             <div className='not-do-tasks'>
-              <p>Not Do Tasks</p>
+            <p className='task-title'>Not Do Tasks</p>
               <ul>
                 {notDoTask.map(task => (
                   <li key={task.id}>
-                    <p>{task.title}</p>
-                    <button onClick={() => handleChangeTask(task.id,"InComplete")} className="dotoday-button">do today!</button>
+                    <p className='task-title-text'>{task.title}</p>
+                    <div className='button-group-main'>
+                      <button onClick={() => handleChangeTask(task.id,"InComplete")} className="dotoday-button">do today!</button>
                     
                     <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
+                    </div>
                   </li>
                 ))}
               </ul>
             </div>
 
             <div className='finishedtask'>
-              <p>Finished Tasks</p>
+              <p className='task-title'>Finished Tasks</p>
               <ul>
                 {finishTask.map(task => (
                   <li key={task.id}>
-                    <p>{task.title}</p>
-                    <button onClick={() => handleChangeTask(task.id,"InComplete")}  className="restore-button">restore(Today)</button>
-                    <button onClick={() => handleChangeTask(task.id,"NotDoTask")}  className="restore-button">restore(notToday)</button>                    
-                    <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
+                    <p className='task-title-text'>{task.title}</p>
+                    <div className='button-group-main'>
+                      <button onClick={() => handleChangeTask(task.id,"InComplete")}  className="restore-button-today">restore(Today)</button>
+                      <button onClick={() => handleChangeTask(task.id,"NotDoTask")}  className="restore-button-nottoday">restore(notToday)</button>                    
+                      <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
+                    </div>
                   </li>
                 ))}
               </ul>

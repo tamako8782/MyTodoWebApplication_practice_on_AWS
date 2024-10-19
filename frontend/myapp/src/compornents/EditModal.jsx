@@ -93,8 +93,8 @@ export const EditModal = (props) => {
               <br />
             </div>
 
-            <button onClick={closeEditModal}>Cancel</button>
-            <button onClick={handleUpdateTask}>Submit</button>
+            <button className={classes.cancelbutton} onClick={closeEditModal}>Cancel</button>
+            <button className={classes.submitbutton} onClick={handleUpdateTask}>Submit</button>
           </div>
         </div>
       ) : null}

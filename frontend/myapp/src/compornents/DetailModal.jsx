@@ -27,9 +27,9 @@ export const DetailModal = (props) => {
                 <p>{props.task.updated_at}</p>
               </ul>
             </div>
-            <button onClick={closeDetailModal}>close</button>
-            <button onClick={props.onDelete}>delete</button> {/* 削除確認モーダルを表示 */}
-            <button onClick={props.onEdit}>edit</button>  {/* editボタンでonEditを呼び出す */}
+            <button className={classes.cancelbutton} onClick={closeDetailModal}>cancel</button>
+            <button className={classes.deletebutton} onClick={props.onDelete}>delete</button> 
+            <button className={classes.editbutton} onClick={props.onEdit}>edit</button> 
           </div>
         </div>
       ) : null}

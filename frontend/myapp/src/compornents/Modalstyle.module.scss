@@ -38,41 +38,6 @@
   margin: 5px 0; /* テキスト間の余白を調整 */
 }
 
-/* Deleteモーダル専用のスタイル */
-.deleteMessage {
-  font-size: 18px;
-  font-weight: bold;
-  color: #d9534f; /* 警告色を追加 */
-  margin-bottom: 20px; /* 下部にスペースを追加 */
-}
-
-
-.yesButton {
-  background-color: #d9534f; /* Yesボタンを赤色にして目立たせる */
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.yesButton:hover {
-  background-color: #c9302c; /* Hover時に色を少し濃くする */
-}
-
-.noButton {
-  background-color: #5bc0de; /* Noボタンは青色に */
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.noButton:hover {
-  background-color: #31b0d5; /* Hover時に色を少し濃くする */
-}
-
 /* CreateModalとEditModalの共通スタイル */
 .tasktitle,
 .taskcontent,
@@ -100,7 +65,9 @@
 }
 
 .submitbutton,
-.cancelbutton {
+.cancelbutton,
+.deletebutton,
+.editbutton {
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
@@ -109,26 +76,46 @@
 }
 
 .submitbutton {
-  background-color: #5cb85c; /* 成功を示す緑色 */
+  background-color: #5bc0de; /* 青色 */
   color: #fff;
 }
 
 .submitbutton:hover {
-  background-color: #4cae4c; /* Hover時に色を少し濃く */
+  background-color: #31b0d5; /* Hover時の青色 */
+  color: #fff;
 }
 
 .cancelbutton {
-  background-color: #f0ad4e; /* 警告色のオレンジ */
+  background-color: #d9534f !important; 
   color: #fff;
 }
 
 .cancelbutton:hover {
-  background-color: #ec971f; /* Hover時に色を少し濃く */
+  background-color: #800000 !important;
+  color: #fff;
+}
+
+.closebutton {
+  background-color: #00AA00	!important;
+  color: #fff;
+}
+
+.deletebutton  {
+  background-color: #444444	 !important;
+  color: #fff;
+}
+
+.editbutton {
+  background-color: #00BB00	 !important;
+  color: #fff;
 }
 
 
 
-/* Deleteモーダル専用のスタイル */
+
+/* 
+Deleteモーダル専用のスタイル 
+*/
 .deleteOverlay {
   position: fixed;
   top: 0;
@@ -159,6 +146,7 @@
   margin-bottom: 20px; /* 下部にスペースを追加 */
 }
 
+
 .buttonGroup {
   display: flex;
   justify-content: space-evenly; /* ボタン間のスペースを均等にする */
@@ -171,8 +159,6 @@
 .yesButton, .noButton {
   width: 100px; /* ボタンの幅を固定 */
   padding: 10px 20px; /* ボタン内の余白 */
-  background-color: #d9534f; /* Yesボタンの背景色 */
-  color: #fff;
   border: none;
   border-radius: 4px;
   text-align: center;
@@ -180,14 +166,25 @@
   cursor: pointer;
 }
 
+
+
+.yesButton {
+  background-color: #5bc0de; /* 青色 */
+  color: #fff;
+
+}
+
 .noButton {
-  background-color: #5bc0de; /* Noボタンの背景色 */
+  background-color: #d9534f; /* 赤色 */
+  color: #fff;
+
 }
 
 .yesButton:hover {
-  background-color: #c9302c; /* Hover時のYesボタンの色 */
+  background-color: #31b0d5; /* Hover時のYesボタンの色 */
 }
 
+
 .noButton:hover {
-  background-color: #31b0d5; /* Hover時のNoボタンの色 */
+  background-color: #c9302c; /* Hover時の赤色 */
 }
