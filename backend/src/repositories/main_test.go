@@ -95,8 +95,8 @@ var (
 	dbPassword  = os.Getenv("MYSQL_PASSWORD")
 	dbDatabase  = os.Getenv("MYSQL_DATABASE")
 	dbHost      = os.Getenv("MYSQL_HOST")
-	dbCleanFile = "cleanupDB.sql"
-	dbSetupFile = "setupDB.sql"
+	dbCleanFile = "../repositories/cleanupDB.sql"
+	dbSetupFile = "../repositories/setupDB.sql"
 
 	dbConn = fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?parseTime=true", dbUser, dbPassword, dbHost, dbDatabase)
 )
@@ -140,7 +140,7 @@ func TestMain(m *testing.M) {
 }
 
 func cleanupDB() error {
-	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "--protocol=tcp", "-e", fmt.Sprintf("source ../%s", dbCleanFile))
+	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "--protocol=tcp", "-e", fmt.Sprintf("source %s", dbCleanFile))
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
@@ -151,7 +151,7 @@ func cleanupDB() error {
 }
 
 func setupDB() error {
-	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "--protocol=tcp", "-e", fmt.Sprintf("source ../%s", dbSetupFile))
+	cmd := exec.Command("mysql", "-h", dbHost, "-u", dbUser, dbDatabase, "--password="+dbPassword, "--protocol=tcp", "-e", fmt.Sprintf("source %s", dbSetupFile))
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
