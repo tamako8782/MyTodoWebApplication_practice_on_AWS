@@ -1,5 +1,5 @@
-mysql -h yama-db -u app --password=admin1234! yamamysql < /app/src/setupDB.sql
-mysql -h yama-db -u app --password=admin1234! yamamysql < /app/src/cleanupDB.sql
+mysql -h yama-db -u app --password=admin1234! yamamysql < /app/src/repositories/setupDB.sql
+mysql -h yama-db -u app --password=admin1234! yamamysql < /app/src/repositories/cleanupDB.sql
 
 curl http://localhost:8080/task -X GET
 

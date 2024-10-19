@@ -16,13 +16,13 @@ spec:
     spec:
       containers:
       - name: yama-db
-        image: mysql:8.2.0  # 使用するMySQLイメージ
+        image: mysql:8.2.0  
         ports:
-        - containerPort: 3306  # MySQLのポート
+        - containerPort: 3306  
         volumeMounts:
         - name: mysql-storage
-          mountPath: /var/lib/mysql  # データ永続化用のパス
-        readinessProbe:       # 修正: データベースの起動完了を待つためのreadinessProbe
+          mountPath: /var/lib/mysql  
+        readinessProbe:
           exec:
             command:
             - /bin/sh
@@ -57,11 +57,11 @@ spec:
               name: yama-secret
               key: MYSQL_HOST
         - name: TZ
-          value: "Asia/Tokyo"  # タイムゾーンの設定
+          value: "Asia/Tokyo"
 
         resources:
           limits:
-            memory: "1Gi"  # リミットを1Giに増やす
+            memory: "1Gi" 
             cpu: "1000m"
 
       volumes:
@@ -77,12 +77,14 @@ metadata:
   name: mysql-pv
 spec:
   capacity:
-    storage: 1Gi  # 必要なストレージサイズ
-  persistentVolumeReclaimPolicy: Delete  # Deleteの場合、PVCが削除されるとPVも削除される
+    storage: 1Gi 
+     # Retainの場合、PVCが削除されてもPVは削除されない
+     # Deleteの場合、PVCが削除されるとPVも削除される
+  persistentVolumeReclaimPolicy: Retain
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: ./dbvol/data/db  # ホスト側のディレクトリ（Docker Composeの設定と同様）
+    path: ./dbvol/data/db  
 
 ---
 apiVersion: v1
@@ -94,7 +96,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi  # PersistentVolumeのサイズと一致させる
+      storage: 1Gi  
 
 
 
