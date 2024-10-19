@@ -1,0 +1,5 @@
+FROM migrate/migrate:4 AS prod
+
+COPY ./ /migrations
+
+CMD ["sh", "-c", "migrate -source file:///migrations -database \"mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@tcp(${MYSQL_HOST}:3306)/${MYSQL_DATABASE}\" up"]
