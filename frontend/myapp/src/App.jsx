@@ -25,7 +25,7 @@ export const App = () => {
   const [error, setError] = useState(null);
 
   /////////////6タスク数制御用
-  const maxTasks = 5;
+  const maxTasks = 6;
   const taskCount = inCompTask.length; // inCompTaskはタスクリストの配列
 
 
@@ -159,7 +159,7 @@ export const App = () => {
           <div className='incompletetask'>
             <div className='task-title-group'>
               <p className='task-title'>Today's 6 Tasks</p>
-              {taskCount > maxTasks && (<p className='task-warning'> Oops, you can only add up to 6 tasks!</p>
+              {taskCount >= maxTasks && (<p className='task-warning'> Oops, you can only add up to 6 tasks!</p>
             )}
             </div>
             <ul>

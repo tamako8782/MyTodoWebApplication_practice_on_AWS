@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
       target: ${environment}
     container_name: react-app-prod
-    image: tamako8782/mytodoapp:front-prodv1
+    image: tamako8782/mytodoapp:front-prodv2
     volumes:
       - ./frontend/myapp:/app
       - /app/node_modules
