@@ -39,6 +39,11 @@
 ![image](https://github.com/user-attachments/assets/0e0c4f08-11d7-48de-82aa-a9200ff5326f)
 ![image](https://github.com/user-attachments/assets/d9924716-d8d7-4609-a3a6-bb67ce5326d4)
 
+- 動作検証動画
+
+https://github.com/user-attachments/assets/41636dd2-2213-4d57-8c16-204b339768aa
+
+
 
 
 
