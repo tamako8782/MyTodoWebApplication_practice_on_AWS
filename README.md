@@ -41,8 +41,6 @@
 
 - 動作検証動画
 
-https://github.com/user-attachments/assets/41636dd2-2213-4d57-8c16-204b339768aa
-
 
 
 
