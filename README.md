@@ -58,6 +58,8 @@ https://github.com/user-attachments/assets/d06ab1a0-c318-4308-9881-40a2bc57369a
     
   - クラスター構成図
 
+![diagram](https://github.com/user-attachments/assets/e030be69-e3cb-478f-9a26-688acee5aab5)
+
 
 
 ### 2.2 主要コンポーネント一覧
