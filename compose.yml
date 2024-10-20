@@ -14,8 +14,53 @@ services:
       - "3000:3000"
     stdin_open: true
 
+#####go
+  go-app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: ${environment}
+    container_name: go-app
+    volumes:
+    - ./backend/:/app/
+    ports:
+      - "8080:8080"
     environment:
-      - backendpath="${backendpath}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+      - "MYSQL_HOST=${MYSQL_HOST}"
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+      - "MYSQL_PORT=${MYSQL_PORT:-3306}"
+#####mysql
+  db:
+    image: mysql:8.2.0
+    container_name: yama-db
+    volumes:
+      - ./backend/dbvol/data/db:/var/lib/mysql
+    environment: 
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+      - TZ=Asia/Tokyo
+    ports:
+      - "3306:3306"
 
-volumes:
-  tmp-data:
+#####migrate
+  db-migrate:
+    build:
+      context: ./backend/dbvol/migrate
+#      target: ${environment}
+    depends_on:
+        - db
+    command: ["up"]
+    environment:
+      - "MYSQL_HOST=${MYSQL_HOST}"
+      - "WAIT_HOSTS= ${MYSQL_HOST}:3306"
+      - "MIGRATIONS_DIR= /migrations"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+    volumes:
+          - ./backend/dbvol/migrate:/migrations
+      
