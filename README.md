@@ -41,31 +41,32 @@
 1. 生成AIからタスク遂行のためのロードマップを提案してくれる機能をつけてみたい
 
 ### 1.4 アプリケーション動作サンプル
+
 - メイン画面
-![image](https://github.com/user-attachments/assets/287dbf03-4c6f-4e78-b07c-87ba990fb67d)
+![メイン画面](./diagram/picture/mainview1.png)
 
 - タスク作成画面
-![image](https://github.com/user-attachments/assets/3ac96e01-2c2b-480b-b26f-ce2a6c36b5bc)
-![image](https://github.com/user-attachments/assets/5d13496d-4d93-4bb7-99b1-093a5cd117d4)
-![image](https://github.com/user-attachments/assets/79036687-1cf7-4cd1-a806-cd336f1a8167)
+![タスク作成画面](./diagram/picture/createview1.png)
+![タスク作成画面](./diagram/picture/createview2.png)
+![タスク作成画面](./diagram/picture/createview3.png)
 
 - タスク詳細画面
-![image](https://github.com/user-attachments/assets/e44c3dc4-7e44-4241-a94c-a7f490aaab00)
+![タスク詳細画面](./diagram/picture/detailview1.png)
 
 - タスク編集画面
-![image](https://github.com/user-attachments/assets/a4c8b55f-c0e7-4cca-bd0e-4d90e06acf71)
-![image](https://github.com/user-attachments/assets/599c4c3d-9aa5-423f-9ab4-f2b180ef7626)
+![タスク編集画面](./diagram/picture/editview1.png)
+![タスク編集画面](./diagram/picture/editview2.png)
 
 - タスク削除確認画面
-![image](https://github.com/user-attachments/assets/8fb17323-bd4f-4f31-a5aa-8fa75b75b6ac)
-![image](https://github.com/user-attachments/assets/0e0c4f08-11d7-48de-82aa-a9200ff5326f)
-![image](https://github.com/user-attachments/assets/d9924716-d8d7-4609-a3a6-bb67ce5326d4)
+![タスク削除確認画面](./diagram/picture/deleteview1.png)
+![タスク削除確認画面](./diagram/picture/deleteview2.png)
+![タスク削除確認画面](./diagram/picture/deleteview3.png)
+
+- アラート画面(6タスクへの追加上限)
+![アラート画面](./diagram/picture/6limitalert.png)
 
 - 動作検証動画
-
-
-
-https://github.com/user-attachments/assets/d06ab1a0-c318-4308-9881-40a2bc57369a
+[動作検証動画](./diagram/movie/demoplay.mov)
 
 
 
