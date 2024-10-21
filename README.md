@@ -42,7 +42,7 @@
 
 ### 1.4 アプリケーション動作サンプル
 - メイン画面
-![image](https://github.com/user-attachments/assets/287dbf03-4c6f-4e78-b07c-87ba990fb67d)
+![メイン画面](./diagram/picture/mainview1.png)
 
 - タスク作成画面
 ![image](https://github.com/user-attachments/assets/3ac96e01-2c2b-480b-b26f-ce2a6c36b5bc)
