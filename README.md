@@ -66,7 +66,7 @@
 ![アラート画面](./diagram/picture/6limitalert.png)
 
 - 動作検証動画
-[動作検証動画](./diagram/movie/demoplay.mov)
+![動作検証動画](./diagram/movie/demoplay.mov)
 
 
 
