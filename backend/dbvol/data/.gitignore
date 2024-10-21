@@ -1,37 +1,51 @@
-
-そもそも論
-# dbvol/data/db 配下のすべてのファイルを除外
+# ==========================
+# dbvol 配下のファイルをすべて除外
+# ==========================
+# MySQLデータベースの実データファイルを保存しているdbvol/data/db配下のファイルをすべて無視
 db/*
 
 
-################ mysql
+# ==========================
+# MySQL 関連
+# ==========================
+# MySQLコンパイル時に生成される一時ファイルやオブジェクトファイルを無視
 *~
 *.a
 *.la
 *.lo
 *.o
 *.so
+
+# InnoDB のダブルライトバッファやログファイルを無視
 *ib_doublewrite
 *ib_logfile0
 *ib_logfile1
 *ibdata1
+
+# MySQL SSL証明書ファイルを無視
 *.pem
+
+# CMake関連のファイルを無視
 *.cmake
 !/cmake/*.cmake
 *CMakeFiles/
 CMakeCache.txt
 Makefile
 
+# Eclipseプロジェクト関連ファイルを無視
 .cproject
 .deps
 .metadata
 .project
 .settings
 .*.swp
+
+# MySQLのドキュメントやテストデータを無視
 Docs/INFO_BIN
 Testing/
 VERSION.dep
 
+# MySQLクライアント関連ファイルを無視
 client/async_example
 client/decimal.c
 client/link_sources
@@ -61,12 +75,14 @@ client/rpl_tblmap.cc
 client/rpl_tblmap.h
 client/rpl_utility.h
 
+# コンパイル設定やステータス関連ファイルを無視
 config.guess
 config.log
 config.status
 config.sub
 configure
 
+# デバッグ関連ファイルを無視
 dbug/dbug_analyze
 dbug/dbug-t
 dbug/example1.r
@@ -84,6 +100,7 @@ dbug/tests
 dbug/user.ps
 dbug/user.t
 
+# MySQL関連のスクリプトや実行ファイルを無視
 extra/charset2html
 extra/comp_err
 extra/innochecksum
@@ -94,6 +111,7 @@ extra/replace
 extra/resolve_stack_dump
 extra/resolveip
 
+# MySQLヘッダファイルや設定ファイルを無視
 include/sql_state.h.tmp
 include/config.h
 include/config.h.in
@@ -108,13 +126,15 @@ include/readline
 include/sql_state.h
 include/stamp-h1
 
+# インストールシェルスクリプトを無視
 install-sh
 
+# インスタンスやログファイルを無視
 instance
-
 log
 log.tests
 
+# libmysql関連のファイルを無視
 libmysql/libmysql_exports_file.cc
 libmysql/libmysql_versions.ld
 libmysql/libmysqlclient.so.18
@@ -123,6 +143,7 @@ libmysql/libmysqlclient_r.so.18
 libmysql/libmysqlclient_r.so.18.0.0
 libmysql/mysqlclient_depends.c
 
+# embedded MySQLクライアントのテストファイルを無視
 libmysqld/examples/mysql_client_test_embedded
 libmysqld/examples/mysql_embedded
 libmysqld/examples/mysqltest_embedded
@@ -130,6 +151,7 @@ libmysqld/libmysqld.so.18
 libmysqld/libmysqld_exports_file.cc
 libmysqld/mysqlserver_depends.c
 
+# MySQLのテストファイルを無視
 mysql-test/collections/default.release
 mysql-test/collections/default.release.done
 mysql-test/lib/My/SafeProcess/my_safe_process
@@ -137,8 +159,10 @@ mysql-test/mtr
 mysql-test/mysql-test-run
 mysql-test/var
 
+# MySQL内部システムで使用するロックファイルを無視
 mysys/thr_lock
 
+# PCRE (Perl Compatible Regular Expressions)関連ファイルを無視
 pcre/CTestCustom.ctest
 pcre/config.h
 pcre/pcre.h
@@ -148,8 +172,10 @@ pcre/pcre_test.sh
 pcre/pcregrep
 pcre/pcretest
 
+# plugin関連ファイルを無視
 plugin/fulltext/.libs/
 
+# スクリプトやビルド関連ファイルを無視
 scripts/comp_sql
 scripts/make_binary_distribution
 scripts/make_sharedlib_distribution
@@ -174,6 +200,7 @@ scripts/mysqldumpslow
 scripts/mysqlhotcopy
 scripts/mytop
 
+# SQLベンチマークテスト用のファイルを無視
 sql-bench/bench-count-distinct
 sql-bench/bench-init.pl
 sql-bench/compare-results
@@ -199,6 +226,7 @@ sql-bench/test-table-elimination
 sql-bench/test-transactions
 sql-bench/test-wisconsin
 
+# SQL関連ファイルを無視
 sql/.libs/
 sql/client.c
 sql/db.opt
@@ -211,179 +239,50 @@ sql/my_user.c
 sql/mysql_tzinfo_to_sql
 sql/mysqld
 sql/pack.c
-sql/share/bulgarian/
-sql/share/czech/
-sql/share/danish/
-sql/share/dutch/
-sql/share/english/
-sql/share/errmsg.sys
-sql/share/estonian/
-sql/share/french/
-sql/share/german/
-sql/share/greek/
-sql/share/hungarian/
-sql/share/italian/
-sql/share/japanese-sjis/
-sql/share/japanese/
-sql/share/korean/
-sql/share/mysql/
-sql/share/norwegian-ny/
-sql/share/norwegian/
-sql/share/polish/
-sql/share/portuguese/
-sql/share/romanian/
-sql/share/russian/
-sql/share/serbian/
-sql/share/slovak/
-sql/share/spanish/
-sql/share/swedish/
-sql/share/ukrainian/
-sql/sql_builtin.cc
-sql/sql_yacc.cc
-sql/sql_yacc.h
-sql/sql_yacc.output
 
-storage/blackhole/.libs/
-storage/heap/hp_test1
-storage/heap/hp_test2
-storage/innobase/.libs/
-storage/maria/aria_chk
-storage/maria/aria_dump_log
-storage/maria/aria_ftdump
-storage/maria/aria_pack
-storage/maria/aria_read_log
-storage/maria/ma_rt_test
-storage/maria/ma_sp_test
-storage/maria/ma_test1
-storage/maria/ma_test2
-storage/maria/ma_test3
-storage/maria/unittest/ma_control_file-t
-storage/maria/unittest/ma_pagecache_consist_1k-t
-storage/maria/unittest/ma_pagecache_consist_1kHC-t
-storage/maria/unittest/ma_pagecache_consist_1kRD-t
-storage/maria/unittest/ma_pagecache_consist_1kWR-t
-storage/maria/unittest/ma_pagecache_consist_64k-t
-storage/maria/unittest/ma_pagecache_consist_64kHC-t
-storage/maria/unittest/ma_pagecache_consist_64kRD-t
-storage/maria/unittest/ma_pagecache_consist_64kWR-t
-storage/maria/unittest/ma_pagecache_rwconsist2_1k-t
-storage/maria/unittest/ma_pagecache_rwconsist_1k-t
-storage/maria/unittest/ma_pagecache_single_1k-t
-storage/maria/unittest/ma_pagecache_single_64k-t
-storage/maria/unittest/ma_pagecache_single_8k-t
-storage/maria/unittest/ma_test_loghandler-t
-storage/maria/unittest/ma_test_loghandler_first_lsn-t
-storage/maria/unittest/ma_test_loghandler_long-t
-storage/maria/unittest/ma_test_loghandler_max_lsn-t
-storage/maria/unittest/ma_test_loghandler_multigroup-t
-storage/maria/unittest/ma_test_loghandler_multithread-t
-storage/maria/unittest/ma_test_loghandler_noflush-t
-storage/maria/unittest/ma_test_loghandler_nologs-t
-storage/maria/unittest/ma_test_loghandler_pagecache-t
-storage/maria/unittest/ma_test_loghandler_purge-t
-storage/maria/unittest/ma_test_loghandler_readonly-t
-storage/maria/unittest/trnman-t
-storage/myisam/mi_test1
-storage/myisam/mi_test2
-storage/myisam/mi_test3
-storage/myisam/mi_test_all
-storage/myisam/myisam_ftdump
-storage/myisam/myisamchk
-storage/myisam/myisamlog
-storage/myisam/myisampack
-storage/myisam/rt_test
-storage/myisam/sp_test
-storage/perfschema/gen_pfs_lex_token
-storage/perfschema/pfs_lex_token.h
-storage/perfschema/unittest/pfs-t
-storage/perfschema/unittest/pfs_account-oom-t
-storage/perfschema/unittest/pfs_host-oom-t
-storage/perfschema/unittest/pfs_instr-oom-t
-storage/perfschema/unittest/pfs_instr-t
-storage/perfschema/unittest/pfs_instr_class-oom-t
-storage/perfschema/unittest/pfs_instr_class-t
-storage/perfschema/unittest/pfs_user-oom-t
+# MySQLデータベースの言語ファイルを無視
+sql/share/*
 
-strings/conf_to_src
-
-tests/bug25714
-tests/insert_test
-tests/mysql_client_test
-tests/proxy_user_test
-tests/select_test
-tests/thread_test
-
-unittest/examples/no_plan-t
-unittest/examples/simple-t
-unittest/examples/skip-t
-unittest/examples/skip_all-t
-unittest/examples/todo-t
-unittest/my_decimal/my_decimal-t
-unittest/mysys/base64-t
-unittest/mysys/bitmap-t
-unittest/mysys/explain_filename-t
-unittest/mysys/lf-t
-unittest/mysys/ma_dyncol-t
-unittest/mysys/my_atomic-t
-unittest/mysys/my_malloc-t
-unittest/mysys/my_rdtsc-t
-unittest/mysys/my_vsnprintf-t
-unittest/mytap/t/basic-t
-unittest/sql/explain_filename-t
-unittest/sql/my_apc-t
-unittest/sql/sniper_modules-t
-unittest/strings/strings-t
-
-# MySQLデータベースファイル
+# MySQLデータベースファイルを無視（データベースの実ファイル）
 /var/lib/mysql/
 *.ibd
 *.frm
 *.MYD
 *.MYI
 
-# MySQLログファイル
+# MySQLログファイルを無視
 *.log
 mysql-bin.*
 mysql-slow.log
 
-# MySQLバイナリログファイル
+# MySQLバイナリログファイルを無視
 binlog.*
 
-
-# MySQL一時ファイルやソケットファイル
+# MySQLの一時ファイルやソケットファイルを無視
 *.pid
 *.sock
 
-# SQLダンプファイル
+# SQLダンプファイルを無視
 *.sql
 *.sql.gz
 *.dump
 
-# Dockerで使用されるMySQLデータ
+# Dockerで使用されるMySQLデータを無視
 docker/mysql-data/
 docker/mysql-logs/
 
-# MySQL設定ファイル
+# MySQLの設定ファイルを無視
 my.cnf
 auto.cnf
 
-
-
-
-# InnoDB関連のバッファプールおよび一時ファイル
+# InnoDB関連のバッファプールや一時ファイルを無視
 ib_buffer_pool
 *ib_*
 *innodb_temp/*
 *innodb_redo/*
 
-
-# MySQLアンドゥログファイル
+# MySQLのアンドゥログファイルを無視
 undo_*
 
-
-# MySQLの一時テーブルスペース
+# MySQLの一時テーブルスペースを無視
 ibtmp1
-
-
-
-
