@@ -5,7 +5,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-      target: ${environment}
+      target: dev
     container_name: react-app
     volumes:
       - ./frontend/myapp:/app
@@ -19,7 +19,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-      target: ${environment}
+      target: dev
     container_name: go-app
     volumes:
     - ./backend/:/app/
@@ -50,7 +50,6 @@ services:
   db-migrate:
     build:
       context: ./backend/dbvol/migrate
-#      target: ${environment}
     depends_on:
         - db
     command: ["up"]

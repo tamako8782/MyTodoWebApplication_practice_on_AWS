@@ -1,11 +1,13 @@
 version: "3.8"
 
 services:
+
+####react
   react-app-prod:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-      target: ${environment}
+      target: prod
     container_name: react-app-prod
     image: tamako8782/mytodoapp:front-prodv2
     volumes:
@@ -20,7 +22,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-      target: ${environment}
+      target: prod
     container_name: go-app-prod
     image: tamako8782/mytodoapp:back-prodv2
     volumes:
@@ -33,26 +35,13 @@ services:
       - "MYSQL_USER=${MYSQL_USER}"
       - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
       - "MYSQL_PORT=${MYSQL_PORT:-3306}"
-#####mysql(ビルドするだけなんでこれは不要)
-##  db-prod:
-##    image: mysql:8.2.0
-##    container_name: yama-db
-##    volumes:
-##      - ./backend/dbvol/data/db:/var/lib/mysql
-##    environment: 
-##      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
-##      - "MYSQL_USER=${MYSQL_USER}"
-##      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
-##      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
-##      - TZ=Asia/Tokyo
-##    ports:
-##      - "3306:3306"
+
 
 #####migrate
   db-migrate-prod:
     build: 
       context: ./backend/dbvol/migrate 
-      target: ${environment}
+      target: prod
     
     image: tamako8782/mytodoapp:db-migrate-prodv6
     environment:
