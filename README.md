@@ -62,7 +62,7 @@
 ![タスク削除確認画面](./diagram/picture/deleteview2.png)
 ![タスク削除確認画面](./diagram/picture/deleteview3.png)
 
-- アラート画面
+- アラート画面(6タスクへの追加上限)
 ![アラート画面](./diagram/picture/6limitalert.png)
 
 - 動作検証動画
