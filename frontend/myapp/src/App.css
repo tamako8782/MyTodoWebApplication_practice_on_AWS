@@ -1,252 +1,443 @@
 * {
-  margin: 0;
-  padding: 0;
-  font-family:sans-serif;
+  box-sizing: border-box;
 }
 
 body {
+  margin: 0;
   font-family: sans-serif;
-  color:darkslategrey;
-  background-color:aqua;
+  background-color: aqua;
+  min-width: 960px;
 }
-
 
 header {
-  font-size: 20px;
-  width:100% ;
-  height: 20%;
-
+  background-color: #2f5167;
+  color: aliceblue;
+  height: auto;
+  width: 100%;
+  background-size: cover;
 }
 
-/*画面の青白いとこ*/
 main {
   display: flex;
-  flex-direction: column; /* 上下に配置 */
-  font-size: 30px;
+  flex-direction: column;
 }
 
 li {
   list-style-type: none;
-  justify-content: space-between;
   display: block;
-  width:80% ;
-  min-width: 200px; /* 横幅の下限を設定 */
-
-  align-items: center; /* タスク名とボタンの縦方向を揃える */
+  width: 50%;
+  min-width: 100px;
+  align-items: center;
 }
 
-/*タスクの中身の配置とか*/
 main li {
   border: 1px solid #2f5167;
-  padding-left: 20px;
-  padding-bottom: 8px;
-  border-radius: 9px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
 }
 
 button {
   border-radius: 3px;
   border: 1px solid #2f5167;
   height: auto;
-  font-weight: bold;  
-  color:#222222	 ;
+  font-weight: bold;
+  color: #222222;
   padding: 3px;
   margin: 2px;
+  border-radius: 8px;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.4);
+}
 
+button:active {
+  box-shadow: none;
+  transform: translateY(3px);
+  position: relative;
+  top: 10px;
 }
 
 input {
-  margin: 0;  /* inputタグの上下の余白をリセット */
-  padding: 5px;  /* 必要に応じて調整 */
+  margin: 0;
+  padding: 5px;
 }
 
-/*title関連*/
-.title {
-  background-color: #2f5167;
-  height: 94px;
-  color:aliceblue;
-}
-
-.title h1{
-  padding-top: 5px;
-  padding-left:10px;
-  padding-bottom: 0%;
+.main-title h1 {
+  margin: 0;
+  padding-top: 10px;
+  padding-left: 21px;
+  padding-bottom: 0px;
+  font-size: 90px;
 }
 
 .titlespan {
-  color:yellow;
+  color: yellow;
 }
 
-.title p{
+.main-title p {
   margin-top: 0px;
   padding-top: 0%;
   padding-bottom: 10px;
-  padding-left:15px;
+  padding-left: 30px;
+  font-size: 40px;
 }
 
-/*タスク作成ボタン関連*/
-.createtask{
-    margin-top:20px;
-    margin-left:30px;
-    height:60px;
+.createtask {
+  margin-top: 20px;
+  margin-left: 30px;
+  height: auto;
+  margin-bottom: 20px;
 }
 
 .createtask button {
   background-color: cornflowerblue;
-  font-size: 30px;
+  color: #222222;
+  font-size: 70px;
   height: auto;
   padding-left: 10px;
   padding-right: 10px;
 }
+
 .createtask button:hover {
-  background-color:darkblue;
-  color:#fff;
+  background-color: darkblue;
+  color: #fff;
 }
 
-/*下段のタスク*/
-.lower-task{
-  display: flex; 
-  align-items: stretch; /* 高さを自動で揃える */
+.task-title {
+  margin: 10px;
+  font-size: 50px;
+  font-weight: bold;
 }
 
-.not-do-tasks, .finishedtask {
-  flex-grow: 1; /* 幅の自動調整で要素が均等に広がる */
-  min-height: 200px; /* 最小高さの指定 */
+.task-title-text {
+  margin: 10px;
+  font-size: 40px;
 }
 
-/*着手中の6つのタスク*/
 .incompletetask {
   min-height: 300px;
-  width: 97%;
+  width: 96%;
   border: 1px solid #ccc;
-  padding: 10px;
-  margin:8px;
-  border-radius: 9px;
-  background-color:palegoldenrod;
-  color:saddlebrown;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  padding-left: 18px;
+  padding-right: 10px;
+  margin-top: 30px;
+  margin-left: 2%;
+  border-radius: 6px;
+  background-color: palegoldenrod;
+  color: saddlebrown;
 }
 
-.incompletetask  li{
-  background-color: gold;
-
+.incompletetask .task-title {
+  margin: 0;
+  font-size: 70px;
+  padding-left: 10px;
 }
 
-.task-warning{
-  color:#fff;
+.incompletetask li {
+  background-color: rgb(248, 228, 117);
+}
+
+.incompletetask li:first-child {
+  background-color: #ffa632;
+  width: 70%;
+}
+
+.incompletetask li:nth-child(2) {
+  background-color: #ffd035;
+  width: 60%;
+}
+
+.incompletetask li:first-child p {
+  margin: 0;
+  font-size: 66px;
+}
+
+.incompletetask li:nth-child(2) p {
+  margin: 0;
+  font-size: 55px;
+}
+
+.task-warning {
+  color: #fff;
   background-color: red;
   display: inline-block;
-  font-size: 25px;
-
+  font-size: 40px;
+  padding-top: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-/*今日やらないタスク*/
-.not-do-tasks{
+.lower-task {
+  display: flex;
+  align-items: stretch;
+  margin-right: 2%;
+  margin-left: 2%;
+}
+
+.not-do-tasks,
+.finishedtask {
+  flex-grow: 1;
+  min-height: 400px;
+}
+
+.not-do-tasks {
   min-height: 200px;
-  width:60%;
+  width: 56%;
   border: 1px solid #ccc;
   padding: 10px;
-  margin:8px;
+  margin-top: 15px;
+  margin-right: 8px;
   border-radius: 9px;
-  background-color:rgb(157, 250, 161);
-  color:saddlebrown;
- 
+  background-color: rgb(157, 250, 161);
+  color: saddlebrown;
 }
 
-.not-do-tasks  li{
-  background-color:#00DD00	;
-
+.not-do-tasks .task-title {
+  margin: 0;
+  font-size: 50px;
+  padding-left: 10px;
 }
 
+.not-do-tasks li {
+  background-color: #4ce84c;
+}
 
-/*完了済みタスク*/
-.finishedtask{
+.finishedtask {
   min-height: 200px;
-  width:34%;
+  width: 30%;
   border: 1px solid #ccc;
   padding: 10px;
-  margin:8px;
+  margin-top: 15px;
   border-radius: 9px;
-  background-color:lightgrey;
-
+  background-color: lightgrey;
+  color: rgb(19, 32, 32);
 }
 
-.finishedtask li{
-  background-color: gray;
+.finishedtask .task-title {
+  margin: 0;
+  font-size: 35px;
+  padding: 10px;
 }
 
-.button-group-main{
+.finishedtask li {
+  color: rgb(19, 32, 32);
+  background-color: rgb(177, 175, 175);
+}
+
+.finishedtask li p {
+  font-size: 30px;
+}
+
+.button-group-main {
   display: flex;
   padding: 2px;
 }
 
 .comp-button {
-  background-color:#ff8c00 !important;
-  
+  background-color: #ff8c00 !important;
+  font-size: 25px;
+}
+
+li:first-child .comp-button {
+  font-size: 35px;
+}
+
+.incompletetask li:first-child .detail-button {
+  font-size: 35px;
+}
+
+li:nth-child(2) .comp-button {
+  font-size: 30px;
+}
+
+.incompletetask li:nth-child(2) .detail-button {
+  font-size: 30x;
 }
 
 .comp-button:hover {
-  background-color: #FF4F02 !important;
+  background-color: #ff4f02 !important;
   color: #fff;
 }
 
 .detail-button {
-  background-color: #C0C0C0 !important;
-  
+  background-color: #c0c0c0 !important;
+  font-size: 25px;
 }
+
 .detail-button:hover {
   background-color: #808080 !important;
   color: #fff;
 }
 
 .dotoday-button {
-  background-color: #00AA00	!important;
+  background-color: #00aa00 !important;
+  font-size: 25px;
 }
 
 .dotoday-button:hover {
-  background-color: #004400	!important;
+  background-color: #004400 !important;
   color: #fff;
 }
 
 .dotoday-button:disabled {
-  background-color: #ccc !important; /* 無効時の背景色 */
-  color: #666; /* 無効時の文字色 */
-  cursor: not-allowed; /* カーソルを変更 */
+  background-color: #ccc !important;
+  color: #666;
+  cursor: not-allowed;
 }
 
 .restore-button-today {
-  background-color: #ff8c00	!important;
-}
-
-.restore-button-today:hover {
-  background-color: #FF4F02	!important;
-  color: #fff;
-}
-.restore-button-today:disabled {
-  background-color: #ccc !important; /* 無効時の背景色 */
-  color: #666; /* 無効時の文字色 */
-  cursor: not-allowed; /* カーソルを変更 */
-}
-
-
-.restore-button-nottoday {
-  background-color: #00AA00	!important;
-}
-
-.restore-button-nottoday:hover {
-  background-color: #004400	!important;
-  color: #fff;
-}
-
-.task-title{
-  font-size: 30px;
-  font-weight: bold;
-}
-
-.task-title-text{
+  background-color: #ff8c00 !important;
   font-size: 25px;
 }
 
-/*フッター一応作ったがいつ実装すんだ*/
+.restore-button-today:hover {
+  background-color: #ff4f02 !important;
+  color: #fff;
+}
+
+.restore-button-today:disabled {
+  background-color: #ccc !important;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.restore-button-nottoday {
+  background-color: #00aa00 !important;
+  font-size: 25px;
+}
+
+.restore-button-nottoday:hover {
+  background-color: #004400 !important;
+  color: #fff;
+}
+
 footer {
   font-size: 30px;
 }
 
+@media (max-width: 670px) {
+  li {
+    list-style-type: none;
+    display: block;
+    width: 70%;
+    min-width: 100px;
+    align-items: center;
+  }
+
+  button {
+    border-radius: 3px;
+    border: 1px solid #2f5167;
+    height: auto;
+    font-weight: bold;
+    color: #222222;
+    padding: 5px;
+    margin: 2px 25px;
+  }
+
+  header {
+    background-color: #2f5167;
+    color: aliceblue;
+    height: 150px;
+    width: 100%;
+  }
+
+  .main-title h1 {
+    margin: 0;
+    padding-top: 10px;
+    padding-left: 21px;
+    padding-bottom: 0px;
+    font-size: 55px;
+    text-align: center;
+  }
+  .main-title p {
+    margin-top: 0px;
+    padding-top: 0%;
+    padding-bottom: 10px;
+    padding-left: 21px;
+    font-size: 35px;
+    text-align: center;
+  }
+
+  .incompletetask li:first-child {
+    background-color: #ffa632;
+    width: 90%;
+  }
+
+  .incompletetask li:nth-child(2) {
+    background-color: #ffd035;
+    width: 80%;
+  }
+
+  .button-group-main {
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+  }
+
+  .comp-button {
+    background-color: #ff8c00 !important;
+    font-size: 23px;
+  }
+
+  li:first-child .comp-button {
+    font-size: 25px;
+  }
+
+  .incompletetask li:first-child .detail-button {
+    font-size: 25px;
+  }
+
+  li:nth-child(2) .comp-button {
+    font-size: 23px;
+  }
+
+  .incompletetask li:nth-child(2) .detail-button {
+    font-size: 23px;
+  }
+
+  .restore-button-nottoday {
+    background-color: #00aa00 !important;
+    font-size: 23px;
+  }
+
+  .restore-button-today {
+    background-color: #ff8c00 !important;
+    font-size: 23px;
+  }
+
+  .dotoday-button {
+    background-color: #00aa00 !important;
+    font-size: 23px;
+  }
+
+  .detail-button {
+    background-color: #c0c0c0 !important;
+    font-size: 23px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .task-title {
+    font-size: 30px;
+  }
+
+  .incompletetask li:first-child {
+    background-color: #ffa632;
+    width: 90%;
+  }
+
+  .incompletetask li:nth-child(2) {
+    background-color: #ffd035;
+    width: 80%;
+  }
+
+  li {
+    list-style-type: none;
+    display: block;
+    width: 70%;
+    min-width: 100px;
+    align-items: center;
+  }
+}

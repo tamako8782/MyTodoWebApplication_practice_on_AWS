@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import classes from "./Modalstyle.module.scss";
 
 export const EditModal = (props) => {
-  const { task, onTaskUpdated,detailpath } = props; // タスクデータと更新後の処理
+  const { task, onTaskUpdated,detailpath } = props;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [state, setState] = useState("");
 
-  // 初期値として、選択されたタスクのデータを設定
+
   useEffect(() => {
     if (task) {
       setTitle(task.title);
-      setContent(task.content); // task.content に修正
+      setContent(task.content); 
       setState(task.state);
     }
   }, [task]);
@@ -20,12 +20,16 @@ export const EditModal = (props) => {
     props.setShowEditModal(false);
   };
 
+
+  const submitDisabled = title.trim() === "";
+
+
   const handleUpdateTask = () => {
     const updatepath = `${detailpath}/${task.id}/update`;
     console.log(updatepath);
 
     fetch(updatepath, {
-      method: "PATCH", // PATCHメソッドを使用して部分更新
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -45,8 +49,8 @@ export const EditModal = (props) => {
         console.log("Task updated successfully", data);
         alert("Task updated successfully!");
 
-        onTaskUpdated(); // 更新後、タスクリストを更新する
-        closeEditModal(); // モーダルを閉じる
+        onTaskUpdated();
+        closeEditModal();
       })
       .catch((error) => {
         console.error("Error updating task:", error);
@@ -74,7 +78,7 @@ export const EditModal = (props) => {
             <div className={classes.taskcontent}>
               <p>Task Content</p>
               <textarea
-                rows="10"
+                rows="5"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
               />
@@ -94,7 +98,11 @@ export const EditModal = (props) => {
             </div>
 
             <button className={classes.cancelbutton} onClick={closeEditModal}>Cancel</button>
-            <button className={classes.submitbutton} onClick={handleUpdateTask}>Submit</button>
+            <button  
+              className={classes.submitbutton} 
+              onClick={handleUpdateTask}
+              disabled={submitDisabled}
+            >Submit</button>
           </div>
         </div>
       ) : null}
