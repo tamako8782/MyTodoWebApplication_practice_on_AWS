@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import classes from "./Modalstyle.module.scss";
-import { TaskContext } from "../App";  // createpathを使うためにインポート
+import { TaskContext } from "../App"; 
 
 export const CreateModal = (props) => {
   // モーダル内で使用する入力値の状態管理
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [state, setState] = useState("NotDoTask");  // デフォルト値を "InComplete" に設定
+  const [state, setState] = useState("NotDoTask");  
 
   const createpath = useContext(TaskContext);
 
@@ -14,6 +14,9 @@ export const CreateModal = (props) => {
   const closeCreateModal = () => {
     props.setShowCreateModal(false);
   };
+
+  // title が空の場合、submitDisabled は true になる
+  const submitDisabled = title.trim() === "";
 
   // タスク作成のための関数
   const handleCreateTask = () => {
@@ -71,7 +74,7 @@ export const CreateModal = (props) => {
             <div className={classes.taskcontent}>
               <p>task content</p>
               <textarea 
-                rows="10" 
+                rows="5" 
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
               ></textarea><br/>
@@ -89,7 +92,11 @@ export const CreateModal = (props) => {
             </div>
 
             <button className={classes.cancelbutton} onClick={closeCreateModal}>Cancel</button>
-            <button className={classes.submitbutton} onClick={onCreate}>Submit</button>
+            <button 
+              className={classes.submitbutton} 
+              onClick={onCreate}
+              disabled={submitDisabled}
+            >Submit</button>
           </div>
         </div>
       ) : (

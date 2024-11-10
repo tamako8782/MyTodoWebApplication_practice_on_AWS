@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: front-app
-          image: tamako8782/mytodoapp:front-prodv2 
+          image: tamako8782/mytodoapp:front-prodv3
           imagePullPolicy: Always 
           resources:
             limits:

@@ -1,10 +1,10 @@
 import { createContext, useEffect, useState } from 'react';
 import './App.css';
+
 import { CreateModal } from './compornents/CreateModal';
 import { DetailModal } from './compornents/DetailModal';
 import { EditModal } from './compornents/EditModal';  
 import { DeleteModal } from './compornents/DeleteModal';  
-
 
 export const TaskContext = createContext();
 
@@ -12,9 +12,9 @@ export const App = () => {
   /////////////モーダル制御用
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);  // EditModalを表示制御するための状態
-  const [showDeleteModal, setShowDeleteModal] = useState(false);  // EditModalを表示制御するための状態
-  const [selectedTask, setSelectedTask] = useState(null); // 選択されたタスクの詳細を保存
+  const [showEditModal, setShowEditModal] = useState(false);  
+  const [showDeleteModal, setShowDeleteModal] = useState(false);  
+  const [selectedTask, setSelectedTask] = useState(null); 
 
   /////////////タスクリスト制御用
   const [inCompTask, setInCompTask] = useState([]);
@@ -28,13 +28,11 @@ export const App = () => {
   const maxTasks = 6;
   const taskCount = inCompTask.length; // inCompTaskはタスクリストの配列
 
-
   /////////////apiパス定義用
   const apipath_env = process.env.REACT_APP_BACKEND_PATH;
   const listpath = apipath_env + "/task";
   const createpath = apipath_env + "/task/create";
   const detailpath = apipath_env + "/task"; // 詳細情報用のパス
-  
 
   ///////////// モーダル参照用のコード(新規作成)
   const ShowCreateModal = () => {
@@ -133,11 +131,12 @@ export const App = () => {
     fetchTaskList();
   }, []);
 
+  // HTMLを返す
   return (
     <TaskContext.Provider value={createpath}>
       <>
         <header>
-          <div className='title'>
+          <div className='main-title'>
             <h1>My<span className='titlespan'>Todo</span>Application</h1>
             <p>Optimize your tasks with this todo list!</p>
           </div>
@@ -157,11 +156,11 @@ export const App = () => {
           </div>
 
           <div className='incompletetask'>
-            <div className='task-title-group'>
+            
               <p className='task-title'>Today's 6 Tasks</p>
               {taskCount >= maxTasks && (<p className='task-warning'> Oops, you can only add up to 6 tasks!</p>
             )}
-            </div>
+            
             <ul>
               {inCompTask.map(task => (
                 <li key={task.id}>
@@ -199,8 +198,8 @@ export const App = () => {
                   <li key={task.id}>
                     <p className='task-title-text'>{task.title}</p>
                     <div className='button-group-main'>
-                      <button onClick={() => handleChangeTask(task.id,"InComplete")}  className="restore-button-today"  disabled={taskCount >= maxTasks}>restore(Today)</button>
-                      <button onClick={() => handleChangeTask(task.id,"NotDoTask")}  className="restore-button-nottoday">restore(notToday)</button>                    
+                      {/*<button onClick={() => handleChangeTask(task.id,"InComplete")}  className="restore-button-today"  disabled={taskCount >= maxTasks}>restore(Today)</button>*/}
+                      <button onClick={() => handleChangeTask(task.id,"NotDoTask")}  className="restore-button-nottoday">restore</button>                    
                       <button onClick={() => ShowDetailModal(task.id)} className="detail-button">detail</button>
                     </div>
                   </li>
